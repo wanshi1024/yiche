@@ -1,8 +1,7 @@
 document.body.style.userSelect = "none";
 document.body.style.backgroundColor = "#E2E7D1";
-// 返回顶部
-document.querySelectorAll('.pages')[1].onclick = () => scrollTo(0, 900)
-
+// 返回顶部  
+document.querySelectorAll('.pages')[1].onclick = () => scrollTo(0, 900);
 
 var showConts = document.querySelectorAll('.show-cont');
 var n = 1; // 1 完整标题  0 截取的标题
