@@ -124,8 +124,7 @@ document.onkeydown = function (e) {
         e.keyCode = 0;
         e.returnValue = false;
         e.cancelBubble = true;
-        alert(`NO`)
+        alert(`Îó´¥ÁËf5ÁËÂğ?`)
         return false;
-
     }
 }
