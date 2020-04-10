@@ -32,8 +32,8 @@ for (let i = 0; i < showConts.length; i++) {
         copy(str)
     }
 
-    // 复制标题
-    let titleDOM = showConts[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0];
+    // 复制标题 
+    let titleDOM = showConts[i].querySelector(".tit-box");
     titleDOM.title = titleDOM.innerText;
     DomStyle(titleDOM);
     titleDOM.onclick = function () {
@@ -49,6 +49,7 @@ for (let i = 0; i < showConts.length; i++) {
             copy(str);
             let hrefStr = carModelDOM.querySelector('a').href;
             localStorage.setItem("hrefStr", hrefStr)
+            // 一键打开图片
             let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
             for (let j = 0; j < imgs.length; j++) {
                 let imgUrl = imgs[j].src;
@@ -75,6 +76,7 @@ for (let i = 0; i < showConts.length; i++) {
 
 function DomStyle(dom) {
     dom.style.cursor = 'pointer';
+    dom.style.backgroundColor="#E2E7D1";
     dom.onmouseout = function () {
         this.style.color = '#606266';
     }
