@@ -4,9 +4,14 @@ document.body.style.backgroundColor = "#E2E7D1";
 document.querySelectorAll('.pages')[1].onclick = () => scrollTo(0, 900);
 
 var showConts = document.querySelectorAll('.show-cont');
+
 var n = 1; // 1 完整标题  0 截取的标题
 for (let i = 0; i < showConts.length; i++) {
-
+    let spanDom = showConts[i].querySelector("li.three").querySelector("span");
+    let str = spanDom.innerText;
+    if (str.substring(str.indexOf('（') + 1, str.length - 1).length < 6) {
+        spanDom.style.color = 'red';
+    }
     showConts[i].querySelector('.cont_text').style.display = 'none';
     showConts[i].childNodes[0].childNodes[0].childNodes[0].childNodes[2].childNodes[1].style.display = 'none';
 
@@ -76,7 +81,7 @@ for (let i = 0; i < showConts.length; i++) {
 
 function DomStyle(dom) {
     dom.style.cursor = 'pointer';
-    dom.style.backgroundColor="#E2E7D1";
+    dom.style.backgroundColor = "#E2E7D1";
     dom.onmouseout = function () {
         this.style.color = '#606266';
     }
