@@ -73,9 +73,11 @@ for (let i = 0; i < showConts.length; i++) {
     // 复制发表时间
     let publishTimeDOM = showConts[i].childNodes[0].childNodes[2].childNodes[2];
     commonCopy(publishTimeDOM);
+    publishTimeDOM.style.backgroundColor='white';
     //复制点评id
     let reviewIdDom = showConts[i].childNodes[0].childNodes[2].childNodes[0];
-    commonCopy(reviewIdDom);
+    commonCopy(reviewIdDom, 'id');
+    reviewIdDom.style.backgroundColor='white';
 
 }
 
@@ -87,11 +89,15 @@ function DomStyle(dom) {
     }
 }
 
-function commonCopy(dom) {
+function commonCopy(dom, type) {
     DomStyle(dom);
     dom.onclick = function () {
         this.style.color = 'red';
-        copy(this.innerText);
+        let str = this.innerText;
+        if (type == 'id') {
+            str = str.replace('点评ID：', '');
+        }
+        copy(str);
     }
 
 }
