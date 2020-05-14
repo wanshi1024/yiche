@@ -7,6 +7,10 @@ var showConts = document.querySelectorAll('.show-cont');
 
 var n = 1; // 1 完整标题  0 截取的标题
 for (let i = 0; i < showConts.length; i++) {
+
+    // 编辑按钮设置禁用
+    showConts[i].querySelectorAll('.btn-warp')[1].querySelector('button').disabled = true;
+    //uuid少于6位的有错得询问
     let spanDom = showConts[i].querySelector("li.three").querySelector("span");
     let str = spanDom.innerText;
     if (str.substring(str.indexOf('（') + 1, str.length - 1).length < 6) {
@@ -25,6 +29,10 @@ for (let i = 0; i < showConts.length; i++) {
     // 复制车型
     let carModelDOM = showConts[i].childNodes[0].childNodes[0].childNodes[0].childNodes[2];
     DomStyle(carModelDOM);
+    if (carModelDOM.innerText == '蔚来ES6' || carModelDOM.innerText == '蔚来ES8') {
+        carModelDOM.title = '蔚来ES6和ES8如果不是购车信息有问题，其他问题都发到群里问';
+        carModelDOM.style.color = 'red';
+    }
     carModelDOM.onclick = function () {
         this.style.color = 'red';
         let arr = carModelDOM.innerText.split(' '),
@@ -73,11 +81,11 @@ for (let i = 0; i < showConts.length; i++) {
     // 复制发表时间
     let publishTimeDOM = showConts[i].childNodes[0].childNodes[2].childNodes[2];
     commonCopy(publishTimeDOM);
-    publishTimeDOM.style.backgroundColor='white';
+    publishTimeDOM.style.backgroundColor = 'white';
     //复制点评id
     let reviewIdDom = showConts[i].childNodes[0].childNodes[2].childNodes[0];
     commonCopy(reviewIdDom, 'id');
-    reviewIdDom.style.backgroundColor='white';
+    reviewIdDom.style.backgroundColor = 'white';
 
 }
 
