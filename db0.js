@@ -19,8 +19,8 @@ for (let i = 0; i < showConts.length; i++) {
     showConts[i].querySelector('.cont_text').style.display = 'none';
     showConts[i].querySelector('.two').querySelector('a').style.display = 'none';
     showConts[i].querySelector('.three').querySelectorAll('span')[1].style.display='none';
-    showConts[i].querySelectorAll('.btn-warp')[1].style.display='none';
-    showConts[i].querySelectorAll('.btn-warp')[2].style.display='none';
+    // showConts[i].querySelectorAll('.btn-warp')[1].style.display='none';
+    // showConts[i].querySelectorAll('.btn-warp')[2].style.display='none';
 
     // 查询车牌
     let buyCarAddrDOM = showConts[i].childNodes[0].childNodes[4].childNodes[4].childNodes[2];
