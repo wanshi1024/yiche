@@ -10,21 +10,24 @@ for (let i = 0; i < showConts.length; i++) {
 
     // 编辑按钮设置禁用
     showConts[i].querySelectorAll('.btn-warp')[1].querySelector('button').disabled = true;
-    //uuid少于6位的有错得询问
-    let spanDom = showConts[i].querySelector("li.three").querySelector("span");
-    let str = spanDom.innerText;
-    if (str.substring(str.indexOf('（') + 1, str.length - 1).length < 6) {
-        spanDom.style.color = 'red';
-    }
     showConts[i].querySelector('.cont_text').style.display = 'none';
     showConts[i].querySelector('.two').querySelector('a').style.display = 'none';
-    showConts[i].querySelector('.three').querySelectorAll('span')[1].style.display='none';
-    // showConts[i].querySelectorAll('.btn-warp')[1].style.display='none';
-    // showConts[i].querySelectorAll('.btn-warp')[2].style.display='none';
+    showConts[i].querySelector('.three').querySelectorAll('span')[1].style.display = 'none';
+
+    // uid
+    let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
+    DomStyle(uidDom);
+    uidDom.onclick = function () {
+        this.style.color = 'red';
+        let str = this.innerText.trim();
+        str = str.substring(str.indexOf('（') + 1, str.length - 1);
+        copy(str)
+    }
 
     // 查询车牌
-    let buyCarAddrDOM = showConts[i].childNodes[0].childNodes[4].childNodes[4].childNodes[2];
+    let buyCarAddrDOM = showConts[i].querySelector('ul > li:nth-child(3) > p:nth-child(2)');
     DomStyle(buyCarAddrDOM);
+    buyCarAddrDOM.style.backgroundColor = 'white';
     buyCarAddrDOM.onclick = function () {
         window.open(`https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&ch=4&tn=98010089_dg&wd=${this.innerText.trim()}车牌`);
     }
@@ -32,10 +35,6 @@ for (let i = 0; i < showConts.length; i++) {
     // 复制车型
     let carModelDOM = showConts[i].childNodes[0].childNodes[0].childNodes[0].childNodes[2];
     DomStyle(carModelDOM);
-    if (carModelDOM.innerText == '蔚来ES6' || carModelDOM.innerText == '蔚来ES8') {
-        carModelDOM.title = '蔚来ES6和ES8如果不是购车信息有问题，其他问题都发到群里问';
-        carModelDOM.style.color = 'red';
-    }
     carModelDOM.onclick = function () {
         this.style.color = 'red';
         let arr = carModelDOM.innerText.split(' '),
