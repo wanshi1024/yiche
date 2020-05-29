@@ -133,9 +133,40 @@ function copy(value) {
     document.body.removeChild(input); // 删除添加的input节点
     // 页面滚动到之前位置
     window.scrollTo(0, scrollY);
+    promptBox()
     return res; // 返回操作结果
 }
+/**
+ * 提示框
+ */
+function promptBox() {
+    let pb = document.createElement('div');
+    pb.innerHTML = '复制成功';
+    let cssObj = {
+        position: 'fixed',
+        left: '50%',
+        top: '0%',
+        border: '1px solid #EBEEF5',
+        padding: '15px 15px 15px 20px',
+        background: '#f0f9eb',
+        color: '#67C23A',
+        opacity: 0,
+        transition: 'all 1s'
+    };
+    for (let key in cssObj) {
+        pb.style[key] = cssObj[key];
+    }
+    pb.id = 'ws';
+    document.body.append(pb);
+    setTimeout(() => {
+        pb.style.top = '10%';
+        pb.style.opacity = 1;
+        setTimeout(() => {
+            pb.remove()
+        }, 2000);
+    }, 50);
 
+}
 
 document.onkeydown = function (e) {
     e = window.event || e;
