@@ -1,7 +1,24 @@
 document.body.style.userSelect = "none";
 document.body.style.backgroundColor = "#E2E7D1";
 // 返回顶部  
-document.querySelectorAll('.pages')[1].onclick = () => scrollTo(0, 900);
+document.querySelectorAll('.pages')[1].onclick = () => {
+    scrollTo(0, 900);
+    setTimeout(() => {
+        for (let i = 0; i < showConts.length; i++) {
+            let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
+            let uStr = uidDom.innerText.trim();
+            let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
+            let uidArr = [`56`, `57`, `58`, `62`, `78`, `82`];
+            let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
+            if (uidFlag) {
+                uidDom.style.color = '#606266'
+            } else {
+                uidDom.style.color = '#f1e10a'
+            }
+        }
+        promptBox('已标注直接忽略uid的点评')
+    }, 2000);
+}
 
 var showConts = document.querySelectorAll('.show-cont');
 
@@ -16,13 +33,16 @@ for (let i = 0; i < showConts.length; i++) {
 
     // uid
     let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
-    DomStyle(uidDom);
-    uidDom.onclick = function () {
-        this.style.color = 'red';
-        let str = this.innerText.trim();
-        str = str.substring(str.indexOf('（') + 1, str.length - 1);
-        copy(str)
+    let uStr = uidDom.innerText.trim();
+    let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
+    let uidArr = [`56`, `57`, `58`, `62`, `78`, `82`];
+    let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
+    if (uidFlag) {
+        uidDom.style.color = '#606266'
+    } else {
+        uidDom.style.color = '#f1e10a'
     }
+    uidDom.onclick = copy(uidNum)
 
     // 查询车牌
     let buyCarAddrDOM = showConts[i].querySelector('ul > li:nth-child(3) > p:nth-child(2)');
@@ -133,15 +153,16 @@ function copy(value) {
     document.body.removeChild(input); // 删除添加的input节点
     // 页面滚动到之前位置
     window.scrollTo(0, scrollY);
-    promptBox()
+    promptBox('复制成功')
     return res; // 返回操作结果
 }
 /**
- * 提示框
+ * 
+ * @param {*} str 
  */
-function promptBox() {
+function promptBox(str) {
     let pb = document.createElement('div');
-    pb.innerHTML = '复制成功';
+    pb.innerHTML = str;
     let cssObj = {
         position: 'fixed',
         left: '50%',
