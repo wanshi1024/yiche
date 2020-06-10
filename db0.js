@@ -1,7 +1,7 @@
 document.body.style.userSelect = "none";
 document.body.style.backgroundColor = "#E2E7D1";
-// 返回顶部  
-document.querySelectorAll('.pages')[1].onclick = () => {
+
+function uidMark() {
     scrollTo(0, 900);
     setTimeout(() => {
         for (let i = 0; i < showConts.length; i++) {
@@ -19,6 +19,9 @@ document.querySelectorAll('.pages')[1].onclick = () => {
         promptBox('已标注直接忽略uid的点评')
     }, 2000);
 }
+// 返回顶部  
+document.querySelectorAll('.pages')[1].onclick = uidMark
+document.querySelectorAll('.pages')[0].onclick = uidMark
 
 var showConts = document.querySelectorAll('.show-cont');
 
@@ -42,7 +45,10 @@ for (let i = 0; i < showConts.length; i++) {
     } else {
         uidDom.style.color = '#f1e10a'
     }
-    uidDom.onclick = copy(uidNum)
+    uidDom.onclick = () => {
+        copy(uidNum)
+    }
+    uidDom.style.border = '1px solid pink';
 
     // 查询车牌
     let buyCarAddrDOM = showConts[i].querySelector('ul > li:nth-child(3) > p:nth-child(2)');
@@ -106,7 +112,7 @@ for (let i = 0; i < showConts.length; i++) {
     publishTimeDOM.style.backgroundColor = 'white';
     //复制点评id
     let reviewIdDom = showConts[i].childNodes[0].childNodes[2].childNodes[0];
-    commonCopy(reviewIdDom, 'id');
+    reviewIdDom.onclick = () => copy(reviewIdDom.innerText.replace('点评ID：', ''))
     reviewIdDom.style.backgroundColor = 'white';
 
 }
@@ -124,9 +130,6 @@ function commonCopy(dom, type) {
     dom.onclick = function () {
         this.style.color = 'red';
         let str = this.innerText;
-        if (type == 'id') {
-            str = str.replace('点评ID：', '');
-        }
         copy(str);
     }
 
