@@ -8,7 +8,7 @@ function uidMark() {
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
             let uStr = uidDom.innerText.trim();
             let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
-            let uidArr = [`56`, `57`, `58`, `62`, `78`, `82`,`87`];
+            let uidArr = [`56`, `57`, `58`, `62`, `78`, `82`, `87`];
             let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
             if (uidFlag) {
                 uidDom.style.color = '#606266'
@@ -62,6 +62,8 @@ for (let i = 0; i < showConts.length; i++) {
     let carModelDOM = showConts[i].childNodes[0].childNodes[0].childNodes[0].childNodes[2];
     DomStyle(carModelDOM);
     carModelDOM.onclick = function () {
+        let hrefStr = carModelDOM.querySelector('a').href;
+        localStorage.setItem("hrefStr", hrefStr)
         this.style.color = 'red';
         let arr = carModelDOM.innerText.split(' '),
             str = '';
