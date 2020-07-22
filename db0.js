@@ -8,7 +8,7 @@ function uidMark() {
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
             let uStr = uidDom.innerText.trim();
             let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
-            let uidArr = [`56`, `57`, `58`, `62`, `78`, `82`, `87`];
+            let uidArr = [`56`, `57`, `58`,`59`, `62`, `78`, `82`, `87`];
             let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
             if (uidFlag) {
                 uidDom.style.color = '#606266'
@@ -19,7 +19,7 @@ function uidMark() {
         promptBox('已标注直接忽略uid的点评')
     }, 2000);
 }
-// 返回顶部  
+
 document.querySelectorAll('.pages')[1].onclick = uidMark
 document.querySelectorAll('.pages')[0].onclick = uidMark
 
@@ -34,21 +34,6 @@ for (let i = 0; i < showConts.length; i++) {
     showConts[i].querySelector('.two').querySelector('a').style.display = 'none';
     showConts[i].querySelector('.three').querySelectorAll('span')[1].style.display = 'none';
 
-    // uid
-    let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
-    let uStr = uidDom.innerText.trim();
-    let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
-    let uidArr = [`56`, `57`, `58`, `62`, `78`, `82`];
-    let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
-    if (uidFlag) {
-        uidDom.style.color = '#606266'
-    } else {
-        uidDom.style.color = '#f1e10a'
-    }
-    uidDom.onclick = () => {
-        copy(uidNum)
-    }
-    uidDom.style.border = '1px solid pink';
 
     // 查询车牌
     let buyCarAddrDOM = showConts[i].querySelector('ul > li:nth-child(3) > p:nth-child(2)');
