@@ -79,7 +79,7 @@ for (let i = 0; i < showConts.length; i++) {
             localStorage.setItem("hrefStr", hrefStr)
             // 一键打开图片
             let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
-            for (let j = 0; j < imgs.length; j++) {
+            for (let j =  imgs.length-1; j >=0; j--) {
                 let imgUrl = imgs[j].src;
                 window.open(imgUrl);
             }
