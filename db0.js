@@ -1,39 +1,68 @@
 document.body.style.userSelect = "none";
 document.body.style.backgroundColor = "#E2E7D1";
+var showConts = document.querySelectorAll('.show-cont');
 
 function uidMark() {
     scrollTo(0, 900);
     setTimeout(() => {
+        let jpNum = 0;
         for (let i = 0; i < showConts.length; i++) {
+            // 标记uid
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
             let uStr = uidDom.innerText.trim();
             let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
-            let uidArr = [`56`, `57`, `58`,`59`, `62`, `78`, `82`, `87`];
+            let uidArr = [`56`, `57`, `58`, `59`, `62`, `78`, `82`, `87`];
             let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
             if (uidFlag) {
                 uidDom.style.color = '#606266'
             } else {
                 uidDom.style.color = '#f1e10a'
             }
+
+            // 查找竞品文字
+            let contTextDom = showConts[i].querySelector('.cont_text');
+            let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
+            ipDom.style.backgroundColor = `white`;
+            let textArr = ['汽车之家', '懂车帝', '爱卡汽车', '瓜子网', '人人车'];
+            for (let i = 0; i < textArr.length; i++) {
+                let str = contTextDom.innerHTML;
+                let index = str.indexOf(textArr[i]);
+                if (index != -1) {
+                    console.log(textArr[i]);
+                    str = str.replace(textArr[i], `<mark><b>${textArr[i]}</b></mark>`);
+                    contTextDom.innerHTML = str;
+                    ipDom.style.backgroundColor = `yellow`;
+                    jpNum++;
+                    break;
+                }
+            }
         }
-        promptBox('已标注直接忽略uid的点评')
+        promptBox(`已标注uid,竞品文字有 <b>${jpNum}</b> 条点评`);
     }, 2000);
 }
 
-document.querySelectorAll('.pages')[1].onclick = uidMark
-document.querySelectorAll('.pages')[0].onclick = uidMark
-
-var showConts = document.querySelectorAll('.show-cont');
-
+document.querySelectorAll('.pages')[1].onclick = uidMark;
+document.querySelectorAll('.pages')[0].onclick = uidMark;
 var n = 1; // 1 完整标题  0 截取的标题
 for (let i = 0; i < showConts.length; i++) {
 
     // 编辑按钮设置禁用
     showConts[i].querySelectorAll('.btn-warp')[1].querySelector('button').disabled = true;
-    showConts[i].querySelector('.cont_text').style.display = 'none';
     showConts[i].querySelector('.two').querySelector('a').style.display = 'none';
     showConts[i].querySelector('.three').querySelectorAll('span')[1].style.display = 'none';
 
+
+    // 点评文字内容的显示和隐藏
+    let contTextDom = showConts[i].querySelector('.cont_text');
+    contTextDom.style.display = 'none';
+    let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
+    ipDom.style.backgroundColor = 'white';
+    ipDom.onclick = () => {
+        contTextDom.style.display = 'block';
+        setTimeout(() => {
+            contTextDom.style.display = 'none';
+        }, 2000);
+    }
 
     // 查询车牌
     let buyCarAddrDOM = showConts[i].querySelector('ul > li:nth-child(3) > p:nth-child(2)');
@@ -79,7 +108,7 @@ for (let i = 0; i < showConts.length; i++) {
             localStorage.setItem("hrefStr", hrefStr)
             // 一键打开图片
             let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
-            for (let j =  imgs.length-1; j >=0; j--) {
+            for (let j = imgs.length - 1; j >= 0; j--) {
                 let imgUrl = imgs[j].src;
                 window.open(imgUrl);
             }
