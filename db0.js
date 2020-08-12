@@ -91,7 +91,6 @@ for (let i = 0; i < showConts.length; i++) {
 
     // 复制标题 
     let titleDOM = showConts[i].querySelector(".tit-box");
-    titleDOM.title = titleDOM.innerText;
     DomStyle(titleDOM);
     titleDOM.onclick = function () {
         this.style.color = 'red';
