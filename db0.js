@@ -93,6 +93,7 @@ for (let i = 0; i < showConts.length; i++) {
     let titleDOM = showConts[i].querySelector(".tit-box");
     DomStyle(titleDOM);
     titleDOM.onclick = function () {
+        let hrefStr = carModelDOM.querySelector('a').href;
         this.style.color = 'red';
         let str = this.innerText;
         if (n) {
@@ -103,7 +104,6 @@ for (let i = 0; i < showConts.length; i++) {
                 str += arr[k];
             }
             copy(str);
-            let hrefStr = carModelDOM.querySelector('a').href;
             localStorage.setItem("hrefStr", hrefStr)
             // 一键打开图片
             let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
