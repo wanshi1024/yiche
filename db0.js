@@ -1,6 +1,9 @@
 document.body.style.userSelect = "none";
 document.body.style.backgroundColor = "#E2E7D1";
 var showConts = document.querySelectorAll('.show-cont');
+window.onbeforeunload = (e) => {
+    return confirm('确认离开吗?');
+}
 
 function uidMark() {
     scrollTo(0, 900);
