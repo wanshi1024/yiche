@@ -107,7 +107,8 @@ for (let i = 0; i < showConts.length; i++) {
                 str += arr[k];
             }
             copy(str);
-            localStorage.setItem("hrefStr", hrefStr)
+            localStorage.setItem("hrefStr", hrefStr);
+            localStorage.setItem("titleStr", this.innerText);
             // 一键打开图片
             let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
             for (let j = imgs.length - 1; j >= 0; j--) {
