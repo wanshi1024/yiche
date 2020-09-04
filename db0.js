@@ -8,7 +8,7 @@ window.onbeforeunload = (e) => {
 function uidMark() {
     scrollTo(0, 900);
     setTimeout(() => {
-        let jpNum = 0;
+       
         for (let i = 0; i < showConts.length; i++) {
             // 标记uid
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
@@ -22,25 +22,26 @@ function uidMark() {
                 uidDom.style.color = '#f1e10a'
             }
 
-            // 查找竞品文字
-            let contTextDom = showConts[i].querySelector('.cont_text');
-            let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
-            ipDom.style.backgroundColor = `white`;
-            let textArr = ['汽车之家', '懂车帝', '爱卡汽车', '瓜子网', '人人车'];
-            for (let i = 0; i < textArr.length; i++) {
-                let str = contTextDom.innerHTML;
-                let index = str.indexOf(textArr[i]);
-                if (index != -1) {
-                    console.log(textArr[i]);
-                    str = str.replace(textArr[i], `<mark><b>${textArr[i]}</b></mark>`);
-                    contTextDom.innerHTML = str;
-                    ipDom.style.backgroundColor = `yellow`;
-                    jpNum++;
-                    break;
-                }
-            }
+            //  查找竞品文字 竞品文字有 <b>${jpNum}</b> 条点评
+            // let jpNum = 0;
+            // let contTextDom = showConts[i].querySelector('.cont_text');
+            // let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
+            // ipDom.style.backgroundColor = `white`;
+            // let textArr = ['汽车之家', '懂车帝', '爱卡汽车', '瓜子网', '人人车'];
+            // for (let i = 0; i < textArr.length; i++) {
+            //     let str = contTextDom.innerHTML;
+            //     let index = str.indexOf(textArr[i]);
+            //     if (index != -1) {
+            //         console.log(textArr[i]);
+            //         str = str.replace(textArr[i], `<mark><b>${textArr[i]}</b></mark>`);
+            //         contTextDom.innerHTML = str;
+            //         ipDom.style.backgroundColor = `yellow`;
+            //         jpNum++;
+            //         break;
+            //     }
+            // }
         }
-        promptBox(`已标注uid,竞品文字有 <b>${jpNum}</b> 条点评`);
+        promptBox(`已标注uid`);
     }, 2000);
 }
 

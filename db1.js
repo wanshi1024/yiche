@@ -21,3 +21,6 @@ _div.onclick = (e) => {
     let titleStr = localStorage.getItem('titleStr');
     window.open(`https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&ch=4&tn=98010089_dg&wd=${'易车 '+titleStr}`);
 }
+window.onbeforeunload = (e) => {
+    return confirm('确认离开吗?');
+}

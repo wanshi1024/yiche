@@ -21,3 +21,6 @@ for (let i = 0; i < a.length; i++) {
     if (i == 1 || i == 5 || i == 12) continue;
     a[i].style.display = "none"
 }
+window.onbeforeunload = (e) => {
+    return confirm('确认离开吗?');
+}
