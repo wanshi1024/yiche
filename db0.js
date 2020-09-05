@@ -8,7 +8,7 @@ window.onbeforeunload = (e) => {
 function uidMark() {
     scrollTo(0, 900);
     setTimeout(() => {
-       
+
         for (let i = 0; i < showConts.length; i++) {
             // 标记uid
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
@@ -104,9 +104,10 @@ for (let i = 0; i < showConts.length; i++) {
             let index = str.indexOf('款'),
                 arr = str.split('');
             str = '';
-            for (let k = index + 1; k < arr.length; k++) {
+            for (let k = index - 4; k < arr.length; k++) {
                 str += arr[k];
             }
+            str = str.slice(0, 5) + ' ' + str.slice(5);
             copy(str);
             localStorage.setItem("hrefStr", hrefStr);
             localStorage.setItem("titleStr", this.innerText);
