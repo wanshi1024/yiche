@@ -52,9 +52,10 @@ for (let i = 0; i < showConts.length; i++) {
 
     // 编辑按钮设置禁用
     showConts[i].querySelectorAll('.btn-warp')[1].querySelector('button').disabled = true;
+    // 隐藏按钮
     showConts[i].querySelector('.two').querySelector('a').style.display = 'none';
-    showConts[i].querySelector('.three').querySelectorAll('span')[1].style.display = 'none';
-
+    showConts[i].querySelector('div.titlelist > ul > li:nth-child(2) > a:nth-child(1)').style.display = 'none';
+    showConts[i].querySelector(' div.titlelist > ul > li:nth-child(2) > a:nth-child(2)').style.display = 'none';
 
     // 点评文字内容的显示和隐藏
     let contTextDom = showConts[i].querySelector('.cont_text');
