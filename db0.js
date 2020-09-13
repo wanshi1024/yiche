@@ -47,15 +47,21 @@ function uidMark() {
 
 document.querySelectorAll('.pages')[1].onclick = uidMark;
 document.querySelectorAll('.pages')[0].onclick = uidMark;
+
 var n = 1; // 1 完整标题  0 截取的标题
 for (let i = 0; i < showConts.length; i++) {
 
     // 编辑按钮设置禁用
     showConts[i].querySelectorAll('.btn-warp')[1].querySelector('button').disabled = true;
     // 隐藏按钮
-    showConts[i].querySelector('.two').querySelector('a').style.display = 'none';
-    showConts[i].querySelector('div.titlelist > ul > li:nth-child(2) > a:nth-child(1)').style.display = 'none';
-    showConts[i].querySelector(' div.titlelist > ul > li:nth-child(2) > a:nth-child(2)').style.display = 'none';
+    let elemSelectorArr = ['li:nth-child(2) > a:nth-child(1)',
+        'li:nth-child(2) > a:nth-child(2)',
+        'li.three > span:nth-child(2) > button',
+        'li.f_r > div > div:nth-child(3) > button:nth-child(1)',
+        'li.f_r > div > div:nth-child(3) > button:nth-child(2)',
+        'li.f_r > div > div:nth-child(2) > button'
+    ];
+    elemSelectorArr.forEach(v => showConts[i].querySelector(` div.titlelist > ul >${v}`).style.display = 'none');
 
     // 点评文字内容的显示和隐藏
     let contTextDom = showConts[i].querySelector('.cont_text');

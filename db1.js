@@ -6,8 +6,8 @@ document.onclick = () => {
 }
 
 let _div = document.createElement('div');
-_div.style.width = '200px';
-_div.style.height = '200px';
+_div.style.width = '50px';
+_div.style.height = '50px';
 _div.style.background = '#19be6b';
 _div.style.position = 'fixed';
 _div.style.bottom = '50%';
