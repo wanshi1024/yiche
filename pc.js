@@ -10,7 +10,7 @@ _div.style.height = '50px';
 _div.style.background = '#19be6b';
 _div.style.position = 'fixed';
 _div.style.bottom = '50%';
-_div.style.left = '0';
+_div.style.right = '0';
 _div.style.cursor = 'pointer'
 _div.onclick = () => scrollTo(0, 0)
 document.body.appendChild(_div);
