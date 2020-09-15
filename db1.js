@@ -6,14 +6,13 @@ document.onclick = () => {
 }
 
 let _div = document.createElement('div');
-_div.style.width = '50px';
+_div.style.width = '100px';
 _div.style.height = '50px';
 _div.style.background = '#19be6b';
 _div.style.position = 'fixed';
-_div.style.bottom = '50%';
+_div.style.bottom = '40%';
 _div.style.left = '0';
 _div.style.cursor = 'pointer'
-_div.onclick = () => scrollTo(0, 0)
 document.body.appendChild(_div);
 
 _div.onclick = (e) => {

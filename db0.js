@@ -6,9 +6,7 @@ window.onbeforeunload = (e) => {
 }
 
 function uidMark() {
-    scrollTo(0, 900);
     setTimeout(() => {
-
         for (let i = 0; i < showConts.length; i++) {
             // 标记uid
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
@@ -21,6 +19,31 @@ function uidMark() {
             } else {
                 uidDom.style.color = '#f1e10a'
             }
+
+            // 标记重点重复车型
+            let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
+            let arr = carModelDOM.innerText.split(' '),
+                str = '';
+            if (arr.length == 3) {
+                str = arr[0] + " " + arr[1]
+            } else {
+                str = arr.join(' ')
+            }
+            let carModelArr = [
+                '昂科旗',
+                '名爵6',
+                '奕炫',
+                '开拓者',
+                '昂科威S',
+                '宋Pro',
+                '风神AX7'];
+            let carModelFlag = carModelArr.some(v => v == str);
+            if (carModelFlag) {
+                carModelDOM.style.backgroundColor = 'pink'
+            } else {
+                carModelDOM.style.backgroundColor = '#E2E7D1'
+            }
+
 
             //  查找竞品文字 竞品文字有 <b>${jpNum}</b> 条点评
             // let jpNum = 0;
@@ -45,8 +68,14 @@ function uidMark() {
     }, 2000);
 }
 
-document.querySelectorAll('.pages')[1].onclick = uidMark;
-document.querySelectorAll('.pages')[0].onclick = uidMark;
+document.querySelectorAll('.pages')[1].onclick = () => {
+    scrollTo(0, 900);
+    uidMark();
+}
+document.querySelectorAll('.pages')[0].onclick = () => {
+    scrollTo(0, 900);
+    uidMark();
+}
 
 var n = 1; // 1 完整标题  0 截取的标题
 for (let i = 0; i < showConts.length; i++) {
@@ -84,7 +113,7 @@ for (let i = 0; i < showConts.length; i++) {
     }
 
     // 复制车型
-    let carModelDOM = showConts[i].childNodes[0].childNodes[0].childNodes[0].childNodes[2];
+    let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
     DomStyle(carModelDOM);
     carModelDOM.onclick = function () {
         let hrefStr = carModelDOM.querySelector('a').href;
@@ -226,10 +255,26 @@ document.onkeydown = function (e) {
     //屏蔽ctrl+R，F5键，ctrl+F5键  F3键！验证
     if ((e.ctrlKey == true && k == 82) || (k == 116) ||
         (e.ctrlKey == true && k == 116) || k == 114) {
-        e.keyCode = 0;
+        // e.keyCode = 0;
         e.returnValue = false;
         e.cancelBubble = true;
         alert(`误触了f5了吗?`)
         return false;
     }
 }
+
+if (document.querySelector('#_div') == null) {
+    let _div = document.createElement('div');
+    _div.id = "_div";
+    _div.style.width = '50px';
+    _div.style.height = '50px';
+    _div.style.background = '#19be6b';
+    _div.style.position = 'fixed';
+    _div.style.bottom = '40%';
+    _div.style.left = '0';
+    _div.style.cursor = 'pointer'
+    document.body.appendChild(_div);
+    _div.onclick = (e) => uidMark();
+}
+
+
