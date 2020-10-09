@@ -12,7 +12,7 @@ function uidMark() {
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
             let uStr = uidDom.innerText.trim();
             let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
-            let uidArr = [`56`, `57`, `58`, `59`, `62`, `78`, `82`, `87`,`93`];
+            let uidArr = [`56`, `57`, `58`, `59`, `62`, `78`, `82`, `87`, `93`];
             let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
             if (!uidFlag) {
                 uidDom.style.color = '#606266'
@@ -21,28 +21,28 @@ function uidMark() {
             }
 
             // 标记重点重复车型
-            let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
-            let arr = carModelDOM.innerText.split(' '),
-                str = '';
-            if (arr.length == 3) {
-                str = arr[0] + " " + arr[1]
-            } else {
-                str = arr.join(' ')
-            }
-            let carModelArr = [
-                '昂科旗',
-                '名爵6',
-                '奕炫',
-                '开拓者',
-                '昂科威S',
-                '宋Pro',
-                '风神AX7'];
-            let carModelFlag = carModelArr.some(v => v == str);
-            if (carModelFlag) {
-                carModelDOM.style.backgroundColor = 'pink'
-            } else {
-                carModelDOM.style.backgroundColor = '#E2E7D1'
-            }
+            // let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
+            // let arr = carModelDOM.innerText.split(' '),
+            //     str = '';
+            // if (arr.length == 3) {
+            //     str = arr[0] + " " + arr[1]
+            // } else {
+            //     str = arr.join(' ')
+            // }
+            // let carModelArr = [
+            //     '昂科旗',
+            //     '名爵6',
+            //     '奕炫',
+            //     '开拓者',
+            //     '昂科威S',
+            //     '宋Pro',
+            //     '风神AX7'];
+            // let carModelFlag = carModelArr.some(v => v == str);
+            // if (carModelFlag) {
+            //     carModelDOM.style.backgroundColor = 'pink'
+            // } else {
+            //     carModelDOM.style.backgroundColor = '#E2E7D1'
+            // }
 
 
             //  查找竞品文字 竞品文字有 <b>${jpNum}</b> 条点评
@@ -63,6 +63,7 @@ function uidMark() {
             //         break;
             //     }
             // }
+            
         }
         promptBox(`已标注uid`);
     }, 2000);
@@ -99,9 +100,14 @@ for (let i = 0; i < showConts.length; i++) {
     ipDom.style.backgroundColor = 'white';
     ipDom.onclick = () => {
         contTextDom.style.display = 'block';
-        setTimeout(() => {
-            contTextDom.style.display = 'none';
-        }, 2000);
+
+
+
+    }
+    let zuihoufabiaoshijian = showConts[i].querySelector('div.manage_info > span:nth-child(3)');
+    zuihoufabiaoshijian.style.backgroundColor = 'white';
+    zuihoufabiaoshijian.onclick = () => {
+        contTextDom.style.display = 'none';
     }
 
     // 查询车牌
