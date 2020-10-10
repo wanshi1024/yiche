@@ -4,7 +4,7 @@ var showConts = document.querySelectorAll('.show-cont');
 window.onbeforeunload = (e) => {
     return confirm('确认离开吗?');
 }
-
+ 
 function uidMark() {
     setTimeout(() => {
         for (let i = 0; i < showConts.length; i++) {
