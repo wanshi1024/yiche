@@ -8,64 +8,32 @@ window.onbeforeunload = (e) => {
 function uidMark() {
     setTimeout(() => {
         for (let i = 0; i < showConts.length; i++) {
+            showConts[i].style.display='none';
             // 标记uid
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
             let uStr = uidDom.innerText.trim();
             let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
-            let uidArr = [`56`, `57`, `58`, `59`, `62`, `78`, `82`, `87`, `93`];
+            // `59`,
+            let uidArr = [`56`, `57`, `58`, `62`, `78`, `82`, `87`, `93`];
             let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
+            let contTextDom = showConts[i].querySelector('.cont_text');
             if (!uidFlag) {
-                uidDom.style.color = '#606266'
-            } else {
-                uidDom.style.color = '#f1e10a'
-            }
-
-            // 标记重点重复车型
-            // let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
-            // let arr = carModelDOM.innerText.split(' '),
-            //     str = '';
-            // if (arr.length == 3) {
-            //     str = arr[0] + " " + arr[1]
-            // } else {
-            //     str = arr.join(' ')
+                showConts[i].style.display='block';
+                // uidDom.style.color = '#606266';
+                // contTextDom.style.display = 'block';
+                let str = contTextDom.innerHTML;
+                let wg = '#外观';
+                let ns = '#内饰';
+                str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
+                str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
+                contTextDom.innerHTML = str;
+            } 
+            // else {
+            //     uidDom.style.color = '#f1e10a';
+            //     contTextDom.style.display = 'none';
             // }
-            // let carModelArr = [
-            //     '昂科旗',
-            //     '名爵6',
-            //     '奕炫',
-            //     '开拓者',
-            //     '昂科威S',
-            //     '宋Pro',
-            //     '风神AX7'];
-            // let carModelFlag = carModelArr.some(v => v == str);
-            // if (carModelFlag) {
-            //     carModelDOM.style.backgroundColor = 'pink'
-            // } else {
-            //     carModelDOM.style.backgroundColor = '#E2E7D1'
-            // }
-
-
-            //  查找竞品文字 竞品文字有 <b>${jpNum}</b> 条点评
-            // let jpNum = 0;
-            // let contTextDom = showConts[i].querySelector('.cont_text');
-            // let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
-            // ipDom.style.backgroundColor = `white`;
-            // let textArr = ['汽车之家', '懂车帝', '爱卡汽车', '瓜子网', '人人车'];
-            // for (let i = 0; i < textArr.length; i++) {
-            //     let str = contTextDom.innerHTML;
-            //     let index = str.indexOf(textArr[i]);
-            //     if (index != -1) {
-            //         console.log(textArr[i]);
-            //         str = str.replace(textArr[i], `<mark><b>${textArr[i]}</b></mark>`);
-            //         contTextDom.innerHTML = str;
-            //         ipDom.style.backgroundColor = `yellow`;
-            //         jpNum++;
-            //         break;
-            //     }
-            // }
-            
         }
-        promptBox(`已标注uid`);
+        // promptBox(`已标注uid`);
     }, 2000);
 }
 
@@ -94,21 +62,18 @@ for (let i = 0; i < showConts.length; i++) {
     elemSelectorArr.forEach(v => showConts[i].querySelector(` div.titlelist > ul >${v}`).style.display = 'none');
 
     // 点评文字内容的显示和隐藏
-    let contTextDom = showConts[i].querySelector('.cont_text');
-    contTextDom.style.display = 'none';
-    let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
-    ipDom.style.backgroundColor = 'white';
-    ipDom.onclick = () => {
-        contTextDom.style.display = 'block';
+    // let contTextDom = showConts[i].querySelector('.cont_text');
+    // contTextDom.style.display = 'none';
+    // let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
+    // ipDom.style.backgroundColor = 'white';
+    // ipDom.onclick = () => contTextDom.style.display = 'block';
 
 
 
-    }
     let zuihoufabiaoshijian = showConts[i].querySelector('div.manage_info > span:nth-child(3)');
     zuihoufabiaoshijian.style.backgroundColor = 'white';
-    zuihoufabiaoshijian.onclick = () => {
-        contTextDom.style.display = 'none';
-    }
+    zuihoufabiaoshijian.onclick = () => contTextDom.style.display = 'none';
+
 
     // 查询车牌
     let buyCarAddrDOM = showConts[i].querySelector('ul > li:nth-child(3) > p:nth-child(2)');

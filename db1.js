@@ -18,7 +18,7 @@ document.body.appendChild(_div);
 _div.onclick = (e) => {
     e.stopPropagation();
     let titleStr = localStorage.getItem('titleStr');
-    window.open(`http://search.bitauto.com/qiche/${titleStr}`);
+    window.open(`https://www.baidu.com/s?wd=${titleStr} 汽车之家`);
 }
 window.onbeforeunload = (e) => {
     return confirm('确认离开吗?');
