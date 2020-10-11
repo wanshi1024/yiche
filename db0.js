@@ -4,11 +4,11 @@ var showConts = document.querySelectorAll('.show-cont');
 window.onbeforeunload = (e) => {
     return confirm('确认离开吗?');
 }
- 
+
 function uidMark() {
     setTimeout(() => {
         for (let i = 0; i < showConts.length; i++) {
-            showConts[i].style.display='none';
+            showConts[i].style.display = 'none';
             // 标记uid
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
             let uStr = uidDom.innerText.trim();
@@ -18,22 +18,22 @@ function uidMark() {
             let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
             let contTextDom = showConts[i].querySelector('.cont_text');
             if (!uidFlag) {
-                showConts[i].style.display='block';
-                // uidDom.style.color = '#606266';
-                // contTextDom.style.display = 'block';
+                showConts[i].style.display = 'block';
                 let str = contTextDom.innerHTML;
                 let wg = '#外观';
                 let ns = '#内饰';
                 str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
                 str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
                 contTextDom.innerHTML = str;
-            } 
-            // else {
-            //     uidDom.style.color = '#f1e10a';
-            //     contTextDom.style.display = 'none';
-            // }
+            }
+            // 显示账号等级B的点评
+            let domB = showConts[i].querySelector('div.titlelist > ul > li.three > p');
+            if (domB != null && domB.innerText == '账号等级：B') {
+                showConts[i].style.display = 'block';
+                domB.style.border = '1px red solid';
+            }
+
         }
-        // promptBox(`已标注uid`);
     }, 2000);
 }
 
@@ -62,11 +62,11 @@ for (let i = 0; i < showConts.length; i++) {
     elemSelectorArr.forEach(v => showConts[i].querySelector(` div.titlelist > ul >${v}`).style.display = 'none');
 
     // 点评文字内容的显示和隐藏
-    // let contTextDom = showConts[i].querySelector('.cont_text');
-    // contTextDom.style.display = 'none';
-    // let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
-    // ipDom.style.backgroundColor = 'white';
-    // ipDom.onclick = () => contTextDom.style.display = 'block';
+    let contTextDom = showConts[i].querySelector('.cont_text');
+    contTextDom.style.display = 'none';
+    let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
+    ipDom.style.backgroundColor = 'white';
+    ipDom.onclick = () => contTextDom.style.display = 'block';
 
 
 
