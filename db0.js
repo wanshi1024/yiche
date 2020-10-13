@@ -19,12 +19,12 @@ function uidMark() {
             let contTextDom = showConts[i].querySelector('.cont_text');
             if (!uidFlag) {
                 showConts[i].style.display = 'block';
-                let str = contTextDom.innerHTML;
-                let wg = '#外观';
-                let ns = '#内饰';
-                str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
-                str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
-                contTextDom.innerHTML = str;
+                // let str = contTextDom.innerHTML;
+                // let wg = '#外观';
+                // let ns = '#内饰';
+                // str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
+                // str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
+                // contTextDom.innerHTML = str;
             }
             // 显示账号等级B的点评
             let domB = showConts[i].querySelector('div.titlelist > ul > li.three > p');
