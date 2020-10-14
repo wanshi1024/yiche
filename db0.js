@@ -1,9 +1,7 @@
 document.body.style.userSelect = "none";
 document.body.style.backgroundColor = "#E2E7D1";
 var showConts = document.querySelectorAll('.show-cont');
-window.onbeforeunload = (e) => {
-    return confirm('确认离开吗?');
-}
+window.onbeforeunload = () => confirm('确认离开吗?');
 
 function uidMark() {
     setTimeout(() => {
@@ -67,9 +65,6 @@ for (let i = 0; i < showConts.length; i++) {
     let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
     ipDom.style.backgroundColor = 'white';
     ipDom.onclick = () => contTextDom.style.display = 'block';
-
-
-
     let zuihoufabiaoshijian = showConts[i].querySelector('div.manage_info > span:nth-child(3)');
     zuihoufabiaoshijian.style.backgroundColor = 'white';
     zuihoufabiaoshijian.onclick = () => contTextDom.style.display = 'none';
@@ -87,9 +82,6 @@ for (let i = 0; i < showConts.length; i++) {
     let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
     DomStyle(carModelDOM);
     carModelDOM.onclick = function () {
-        let hrefStr = carModelDOM.querySelector('a').href;
-        localStorage.setItem("hrefStr", hrefStr)
-        this.style.color = 'red';
         let arr = carModelDOM.innerText.split(' '),
             str = '';
         if (arr.length == 3) {
@@ -104,35 +96,31 @@ for (let i = 0; i < showConts.length; i++) {
     let titleDOM = showConts[i].querySelector(".tit-box");
     DomStyle(titleDOM);
     titleDOM.onclick = function () {
-        let hrefStr = carModelDOM.querySelector('a').href;
-        this.style.color = 'red';
+        let hrefStr1 = carModelDOM.querySelector('a:nth-child(1)').href; //车型信息链接
+        let hrefStr2 = carModelDOM.querySelector('a:nth-child(2)').href; //车型图片链接
         let str = this.innerText;
+        let index = str.indexOf('款');
+        let arr = str.split('');
+        str = '';
+
         if (n) {
-            let index = str.indexOf('款'),
-                arr = str.split('');
-            str = '';
-            for (let k = index - 4; k < arr.length; k++) {
-                str += arr[k];
-            }
-            str = str.slice(0, 5) + ' ' + str.slice(5);
+            // for (let k = index - 4; k < arr.length; k++)  str += arr[k];
+            // str = str.slice(0, 5) + ' ' + str.slice(5);
+            for (let k = index + 1; k < arr.length; k++)  str += arr[k];
             copy(str);
-            localStorage.setItem("hrefStr", hrefStr);
+            localStorage.setItem("hrefStr1", hrefStr1);
+            localStorage.setItem("hrefStr2", hrefStr2);
             localStorage.setItem("titleStr", this.innerText);
-            // 一键打开图片
             let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
             for (let j = imgs.length - 1; j >= 0; j--) {
                 let imgUrl = imgs[j].src;
                 window.open(imgUrl);
             }
         } else {
-            let index = str.indexOf('款'),
-                arr = str.split('');
-            str = '';
-            for (let k = index + 1; k < arr.length; k++) {
-                str += arr[k];
-            }
+            for (let k = index + 1; k < arr.length; k++)  str += arr[k];
             copy(str);
         }
+
     }
     // 复制发表时间
     let publishTimeDOM = showConts[i].childNodes[0].childNodes[2].childNodes[2];
@@ -148,19 +136,14 @@ for (let i = 0; i < showConts.length; i++) {
 function DomStyle(dom) {
     dom.style.cursor = 'pointer';
     dom.style.backgroundColor = "#E2E7D1";
-    dom.onmouseout = function () {
-        this.style.color = '#606266';
-    }
 }
 
-function commonCopy(dom, type) {
+function commonCopy(dom) {
     DomStyle(dom);
     dom.onclick = function () {
-        this.style.color = 'red';
         let str = this.innerText;
         copy(str);
     }
-
 }
 
 /**
