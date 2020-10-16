@@ -220,7 +220,7 @@ document.onkeydown = function (e) {
 if (document.querySelector('#_div') == null) {
     let _div = document.createElement('div');
     _div.id = "_div";
-    _div.style.width = '50px';
+    _div.style.width = '25px';
     _div.style.height = '50px';
     _div.style.background = '#19be6b';
     _div.style.position = 'fixed';

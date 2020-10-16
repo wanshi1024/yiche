@@ -5,7 +5,7 @@ function createMyDom(domText) {
     _div.style.width = '100px';
     _div.style.height = '50px';
     _div.style.background = '#19be6b';
-    _div.style.margin = '5% 20%';
+    _div.style.margin = '5% 40%';
     _div.style.cursor = 'pointer';
     _div.style.color = 'white';
     _div.style.textAlign = 'center';
