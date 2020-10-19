@@ -25,10 +25,14 @@ function uidMark() {
                 // contTextDom.innerHTML = str;
             }
             // 显示账号等级B的点评
-            let domB = showConts[i].querySelector('div.titlelist > ul > li.three > p');
-            if (domB != null && domB.innerText == '账号等级：B') {
+            let accountLevelDom = showConts[i].querySelector('div.titlelist > ul > li.three > p');
+            
+            if (accountLevelDom != null && accountLevelDom.innerText == '账号等级：B') {
                 showConts[i].style.display = 'block';
                 domB.style.border = '1px red solid';
+            }
+            if (accountLevelDom != null && accountLevelDom.innerText == '账号等级：A') {
+                showConts[i].style.display = 'none';
             }
 
         }
