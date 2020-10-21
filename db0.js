@@ -17,23 +17,23 @@ function uidMark() {
             let contTextDom = showConts[i].querySelector('.cont_text');
             if (!uidFlag) {
                 showConts[i].style.display = 'block';
-                // let str = contTextDom.innerHTML;
-                // let wg = '#外观';
-                // let ns = '#内饰';
-                // str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
-                // str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
-                // contTextDom.innerHTML = str;
+                let str = contTextDom.innerHTML;
+                let wg = '#外观';
+                let ns = '#内饰';
+                let se = '色';
+                if (str.indexOf(se) != -1) uidDom.style.color = 'red';
+                else uidDom.style.color = '#606266';
+                str = str.replace(new RegExp(se, 'gm'), `<mark><b>${se}</b></mark>`);
+                str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
+                str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
+                contTextDom.innerHTML = str;
             }
             // 显示账号等级B的点评
             let accountLevelDom = showConts[i].querySelector('div.titlelist > ul > li.three > p');
-            
-            if (accountLevelDom != null && accountLevelDom.innerText == '账号等级：B') {
+            if (accountLevelDom != null && accountLevelDom.innerText == '账号等级：B')
                 showConts[i].style.display = 'block';
-                domB.style.border = '1px red solid';
-            }
-            if (accountLevelDom != null && accountLevelDom.innerText == '账号等级：A') {
+            if (accountLevelDom != null && accountLevelDom.innerText == '账号等级：A')
                 showConts[i].style.display = 'none';
-            }
 
         }
     }, 2000);
@@ -68,9 +68,11 @@ for (let i = 0; i < showConts.length; i++) {
     contTextDom.style.display = 'none';
     let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
     ipDom.style.backgroundColor = 'white';
+    ipDom.style.cursor = 'pointer';
     ipDom.onclick = () => contTextDom.style.display = 'block';
     let zuihoufabiaoshijian = showConts[i].querySelector('div.manage_info > span:nth-child(3)');
     zuihoufabiaoshijian.style.backgroundColor = 'white';
+    zuihoufabiaoshijian.style.cursor = 'pointer';
     zuihoufabiaoshijian.onclick = () => contTextDom.style.display = 'none';
 
 
@@ -106,24 +108,28 @@ for (let i = 0; i < showConts.length; i++) {
         let index = str.indexOf('款');
         let arr = str.split('');
         str = '';
-
-        if (n) {
-            // for (let k = index - 4; k < arr.length; k++)  str += arr[k];
-            // str = str.slice(0, 5) + ' ' + str.slice(5);
-            for (let k = index + 1; k < arr.length; k++)  str += arr[k];
-            copy(str);
-            localStorage.setItem("hrefStr1", hrefStr1);
-            localStorage.setItem("hrefStr2", hrefStr2);
-            localStorage.setItem("titleStr", this.innerText);
-            let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
-            for (let j = imgs.length - 1; j >= 0; j--) {
-                let imgUrl = imgs[j].src;
-                window.open(imgUrl);
-            }
-        } else {
-            for (let k = index + 1; k < arr.length; k++)  str += arr[k];
-            copy(str);
-        }
+        for (let k = index + 1; k < arr.length; k++)  str += arr[k];
+        copy(str);
+        localStorage.setItem("hrefStr1", hrefStr1);
+        localStorage.setItem("hrefStr2", hrefStr2);
+        localStorage.setItem("titleStr", this.innerText);
+        // if (n) {
+        //     for (let k = index - 4; k < arr.length; k++)  str += arr[k];
+        //     str = str.slice(0, 5) + ' ' + str.slice(5);
+        //     for (let k = index + 1; k < arr.length; k++)  str += arr[k];
+        //     copy(str);
+        //     localStorage.setItem("hrefStr1", hrefStr1);
+        //     localStorage.setItem("hrefStr2", hrefStr2);
+        //     localStorage.setItem("titleStr", this.innerText);
+        //     let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
+        //     for (let j = imgs.length - 1; j >= 0; j--) {
+        //         let imgUrl = imgs[j].src;
+        //         window.open(imgUrl);
+        //     }
+        // } else {
+        //     for (let k = index + 1; k < arr.length; k++)  str += arr[k];
+        //     copy(str);
+        // }
 
     }
     // 复制发表时间
