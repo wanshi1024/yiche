@@ -21,7 +21,7 @@ function uidMark() {
                 let wg = '#外观';
                 let ns = '#内饰';
                 let se = '色';
-                if (str.indexOf(se) != -1) uidDom.style.color = 'red';
+                if (str.indexOf(se) != -1) uidDom.style.color = 'skyblue';
                 else uidDom.style.color = '#606266';
                 str = str.replace(new RegExp(se, 'gm'), `<mark><b>${se}</b></mark>`);
                 str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
