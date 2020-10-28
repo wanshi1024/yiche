@@ -59,6 +59,7 @@ for (let i = 0; i < showConts.length; i++) {
         'li.three > span:nth-child(2) > button',
         'li.f_r > div > div:nth-child(3) > button:nth-child(1)',
         'li.f_r > div > div:nth-child(3) > button:nth-child(2)',
+        'li.f_r > div > div:nth-child(3) > button:nth-child(3)',
         'li.f_r > div > div:nth-child(2) > button'
     ];
     elemSelectorArr.forEach(v => showConts[i].querySelector(` div.titlelist > ul >${v}`).style.display = 'none');
