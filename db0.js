@@ -1,5 +1,5 @@
 document.body.style.userSelect = "none";
-document.body.style.backgroundColor = "#E2E7D1";
+// document.body.style.backgroundColor = "#E2E7D1";
 var showConts = document.querySelectorAll('.show-cont');
 window.onbeforeunload = () => confirm('确认离开吗?');
 
@@ -145,7 +145,7 @@ for (let i = 0; i < showConts.length; i++) {
 
 function DomStyle(dom) {
     dom.style.cursor = 'pointer';
-    dom.style.backgroundColor = "#E2E7D1";
+    // dom.style.backgroundColor = "#E2E7D1";
 }
 
 function commonCopy(dom) {
