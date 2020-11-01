@@ -18,6 +18,8 @@ function uidMark() {
             if (!uidFlag) {
                 showConts[i].style.display = 'block';
                 let str = contTextDom.innerHTML;
+                if (str.length < 400) uidDom.style.border = '1px red solid';
+                else uidDom.style.border = 'none';
                 let wg = '#外观';
                 let ns = '#内饰';
                 let se = '色';
@@ -241,5 +243,5 @@ if (document.querySelector('#_div') == null) {
     document.body.appendChild(_div);
     _div.onclick = (e) => uidMark();
 }
- 
+
 
