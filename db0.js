@@ -1,5 +1,3 @@
-// document.body.style.userSelect = "none";
-// document.body.style.backgroundColor = "#E2E7D1";
 var showConts = document.querySelectorAll('.show-cont');
 window.onbeforeunload = () => confirm('确认离开吗?');
 
@@ -69,27 +67,24 @@ for (let i = 0; i < showConts.length; i++) {
     // 点评文字内容的显示和隐藏
     let contTextDom = showConts[i].querySelector('.cont_text');
     contTextDom.style.display = 'none';
+
     let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
-    ipDom.style.backgroundColor = 'white';
     ipDom.style.cursor = 'pointer';
     ipDom.onclick = () => contTextDom.style.display = 'block';
+
     let zuihoufabiaoshijian = showConts[i].querySelector('div.manage_info > span:nth-child(3)');
-    zuihoufabiaoshijian.style.backgroundColor = 'white';
     zuihoufabiaoshijian.style.cursor = 'pointer';
     zuihoufabiaoshijian.onclick = () => contTextDom.style.display = 'none';
 
 
     // 查询车牌
     let buyCarAddrDOM = showConts[i].querySelector('ul > li:nth-child(3) > p:nth-child(2)');
-    DomStyle(buyCarAddrDOM);
-    buyCarAddrDOM.style.backgroundColor = 'white';
-    buyCarAddrDOM.onclick = function () {
-        window.open(`https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&ch=4&tn=98010089_dg&wd=${this.innerText.trim()}车牌`);
-    }
+    buyCarAddrDOM.style.cursor = 'pointer';
+    buyCarAddrDOM.onclick = () => window.open(`https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=${buyCarAddrDOM.innerText.trim()}车牌`)
 
     // 复制车型
     let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
-    DomStyle(carModelDOM);
+    carModelDOM.style.cursor = 'pointer';
     carModelDOM.onclick = function () {
         let arr = carModelDOM.innerText.split(' '),
             str = '';
@@ -101,9 +96,9 @@ for (let i = 0; i < showConts.length; i++) {
         copy(str)
     }
 
-    // 复制标题 
+    // 复制完整车型
     let titleDOM = showConts[i].querySelector(".tit-box");
-    DomStyle(titleDOM);
+    titleDOM.style.cursor = 'pointer';
     titleDOM.onclick = function () {
         let hrefStr1 = carModelDOM.querySelector('a:nth-child(1)').href; //车型信息链接
         let hrefStr2 = carModelDOM.querySelector('a:nth-child(2)').href; //车型图片链接
@@ -137,27 +132,17 @@ for (let i = 0; i < showConts.length; i++) {
     }
     // 复制发表时间
     let publishTimeDOM = showConts[i].childNodes[0].childNodes[2].childNodes[2];
-    commonCopy(publishTimeDOM);
-    publishTimeDOM.style.backgroundColor = 'white';
+    publishTimeDOM.onclick = () => copy(publishTimeDOM.innerText)
+    publishTimeDOM.style.cursor = 'pointer';
+
     //复制点评id
     let reviewIdDom = showConts[i].childNodes[0].childNodes[2].childNodes[0];
     reviewIdDom.onclick = () => copy(reviewIdDom.innerText.replace('点评ID：', ''))
-    reviewIdDom.style.backgroundColor = 'white';
+    reviewIdDom.style.cursor = 'pointer';
 
 }
 
-function DomStyle(dom) {
-    dom.style.cursor = 'pointer';
-    // dom.style.backgroundColor = "#E2E7D1";
-}
 
-function commonCopy(dom) {
-    DomStyle(dom);
-    dom.onclick = function () {
-        let str = this.innerText;
-        copy(str);
-    }
-}
 
 /**
  * 复制字符串到剪贴板的函数

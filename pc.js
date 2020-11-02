@@ -1,5 +1,4 @@
 document.body.style.userSelect = "none";
-// document.body.style.backgroundColor = "#E2E7D1";
 document.querySelector('.header').style.display = "none";
 document.querySelectorAll('.pages')[1].onclick = () => scrollTo(0, 0)
 

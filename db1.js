@@ -1,4 +1,3 @@
-// document.body.style.backgroundColor = "#E2E7D1";
 document.querySelector("#app").style.display = "none";
 function createMyDom(domText) {
     let _div = document.createElement('div');
