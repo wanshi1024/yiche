@@ -1,3 +1,4 @@
+document.body.style.background = '#DFE6C7';
 document.body.style.userSelect = "none";
 document.querySelector('.header').style.display = "none";
 document.querySelectorAll('.pages')[1].onclick = () => scrollTo(0, 0)

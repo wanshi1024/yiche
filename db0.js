@@ -1,3 +1,4 @@
+document.body.style.background = '#DFE6C7';
 var showConts = document.querySelectorAll('.show-cont');
 window.onbeforeunload = () => confirm('确认离开吗?');
 
@@ -70,10 +71,12 @@ for (let i = 0; i < showConts.length; i++) {
 
     let ipDom = showConts[i].querySelector('div.manage_info > span:nth-child(4)');
     ipDom.style.cursor = 'pointer';
+    ipDom.style.background = '#fff';
     ipDom.onclick = () => contTextDom.style.display = 'block';
 
     let zuihoufabiaoshijian = showConts[i].querySelector('div.manage_info > span:nth-child(3)');
     zuihoufabiaoshijian.style.cursor = 'pointer';
+    zuihoufabiaoshijian.style.background = '#fff';
     zuihoufabiaoshijian.onclick = () => contTextDom.style.display = 'none';
 
 
@@ -85,6 +88,7 @@ for (let i = 0; i < showConts.length; i++) {
     // 复制车型
     let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
     carModelDOM.style.cursor = 'pointer';
+    carModelDOM.style.background = '#DFE6C7';
     carModelDOM.onclick = function () {
         let arr = carModelDOM.innerText.split(' '),
             str = '';
@@ -99,6 +103,7 @@ for (let i = 0; i < showConts.length; i++) {
     // 复制完整车型
     let titleDOM = showConts[i].querySelector(".tit-box");
     titleDOM.style.cursor = 'pointer';
+    titleDOM.style.background = '#DFE6C7';
     titleDOM.onclick = function () {
         let hrefStr1 = carModelDOM.querySelector('a:nth-child(1)').href; //车型信息链接
         let hrefStr2 = carModelDOM.querySelector('a:nth-child(2)').href; //车型图片链接
@@ -134,11 +139,13 @@ for (let i = 0; i < showConts.length; i++) {
     let publishTimeDOM = showConts[i].childNodes[0].childNodes[2].childNodes[2];
     publishTimeDOM.onclick = () => copy(publishTimeDOM.innerText)
     publishTimeDOM.style.cursor = 'pointer';
+    publishTimeDOM.style.background = '#fff';
 
     //复制点评id
     let reviewIdDom = showConts[i].childNodes[0].childNodes[2].childNodes[0];
     reviewIdDom.onclick = () => copy(reviewIdDom.innerText.replace('点评ID：', ''))
     reviewIdDom.style.cursor = 'pointer';
+    reviewIdDom.style.background = '#fff';
 
 }
 
