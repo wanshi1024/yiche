@@ -136,16 +136,22 @@ for (let i = 0; i < showConts.length; i++) {
 
     }
     // 复制发表时间
-    let publishTimeDOM = showConts[i].childNodes[0].childNodes[2].childNodes[2];
+    let publishTimeDOM = showConts[i].querySelector('div.manage_info > span:nth-child(2)');
     publishTimeDOM.onclick = () => copy(publishTimeDOM.innerText)
     publishTimeDOM.style.cursor = 'pointer';
     publishTimeDOM.style.background = '#fff';
 
     //复制点评id
-    let reviewIdDom = showConts[i].childNodes[0].childNodes[2].childNodes[0];
+    let reviewIdDom = showConts[i].querySelector('div.manage_info > span:nth-child(1)');
     reviewIdDom.onclick = () => copy(reviewIdDom.innerText.replace('点评ID：', ''))
     reviewIdDom.style.cursor = 'pointer';
     reviewIdDom.style.background = '#fff';
+
+    // 复制用户名 + uuid
+    let usernameAndUuid = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
+    usernameAndUuid.onclick=()=>copy(usernameAndUuid.innerText);
+    usernameAndUuid.style.cursor = 'pointer';
+    usernameAndUuid.style.background = '#DFE6C7';
 
 }
 
