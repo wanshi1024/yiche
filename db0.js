@@ -1,3 +1,4 @@
+document.body.style.userSelect='none';
 document.body.style.background = '#DFE6C7';
 var showConts = document.querySelectorAll('.show-cont');
 window.onbeforeunload = () => confirm('确认离开吗?');

@@ -1,3 +1,4 @@
+document.body.style.userSelect='none';
 document.body.style.background = '#DFE6C7';
 document.querySelector("#app").style.display = "none";
 function createMyDom(domText) {
