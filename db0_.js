@@ -1,4 +1,4 @@
-document.body.style.userSelect='none';
+document.body.style.userSelect = 'none';
 document.querySelector('.w450').style.display='none';
 document.querySelector('.header').style.display = "none";
 document.body.style.background = '#DFE6C7';
@@ -8,17 +8,8 @@ window.onbeforeunload = () => confirm('确认离开吗?');
 function uidMark() {
     setTimeout(() => {
         for (let i = 0; i < showConts.length; i++) {
-            showConts[i].style.display = 'none';
-            // 标记uid
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
-            let uStr = uidDom.innerText.trim();
-            let uidNum = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
-            // `59`,
-            let uidArr = [`56`, `57`, `58`, `62`, `78`, `82`, `87`, `93`];
-            let uidFlag = uidArr.some(v => uidNum.substr(0, 2) == v);
             let contTextDom = showConts[i].querySelector('.cont_text');
-            if (!uidFlag) {
-                showConts[i].style.display = 'block';
                 let str = contTextDom.innerHTML;
                 if (str.length < 400) uidDom.style.border = '1px red solid';
                 else uidDom.style.border = 'none';
@@ -31,14 +22,6 @@ function uidMark() {
                 str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
                 str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
                 contTextDom.innerHTML = str;
-            }
-            // 显示账号等级B的点评
-            let accountLevelDom = showConts[i].querySelector('div.titlelist > ul > li.three > p');
-            if (accountLevelDom != null && accountLevelDom.innerText == '账号等级：B')
-                showConts[i].style.display = 'block';
-            if (accountLevelDom != null && accountLevelDom.innerText == '账号等级：A')
-                showConts[i].style.display = 'none';
-
         }
     }, 2000);
 }
@@ -119,23 +102,6 @@ for (let i = 0; i < showConts.length; i++) {
         localStorage.setItem("hrefStr1", hrefStr1);
         localStorage.setItem("hrefStr2", hrefStr2);
         localStorage.setItem("titleStr", this.innerText);
-        // if (n) {
-        //     for (let k = index - 4; k < arr.length; k++)  str += arr[k];
-        //     str = str.slice(0, 5) + ' ' + str.slice(5);
-        //     for (let k = index + 1; k < arr.length; k++)  str += arr[k];
-        //     copy(str);
-        //     localStorage.setItem("hrefStr1", hrefStr1);
-        //     localStorage.setItem("hrefStr2", hrefStr2);
-        //     localStorage.setItem("titleStr", this.innerText);
-        //     let imgs = showConts[i].querySelector('.image-list').querySelectorAll('img')
-        //     for (let j = imgs.length - 1; j >= 0; j--) {
-        //         let imgUrl = imgs[j].src;
-        //         window.open(imgUrl);
-        //     }
-        // } else {
-        //     for (let k = index + 1; k < arr.length; k++)  str += arr[k];
-        //     copy(str);
-        // }
 
     }
     // 复制发表时间
@@ -152,7 +118,7 @@ for (let i = 0; i < showConts.length; i++) {
 
     // 复制用户名 + uuid
     let usernameAndUuid = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
-    usernameAndUuid.onclick=()=>copy(usernameAndUuid.innerText);
+    usernameAndUuid.onclick = () => copy(usernameAndUuid.innerText);
     usernameAndUuid.style.cursor = 'pointer';
     usernameAndUuid.style.background = '#DFE6C7';
 
