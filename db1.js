@@ -16,8 +16,7 @@ function createMyDom(domText) {
     return _div;
 }
 createMyDom('汽车之家').onclick = () => window.open(`https://www.baidu.com/s?wd=${localStorage.getItem('titleStr')} 汽车之家`);
-createMyDom('车型信息').onclick = () => window.open(localStorage.getItem('hrefStr1'));
-createMyDom('车型图片').onclick = () => window.open(localStorage.getItem('hrefStr2'));
+createMyDom('查看车型').onclick = () => window.open(localStorage.getItem('targetURL'));
 window.onbeforeunload = () => confirm('确认离开吗?');
 
 

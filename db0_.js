@@ -2,8 +2,11 @@ document.body.style.userSelect = 'none';
 document.querySelector('.w450').style.display = 'none';
 document.querySelector('.header').style.display = "none";
 document.body.style.background = '#DFE6C7';
-var showConts = document.querySelectorAll('.show-cont');
 window.onbeforeunload = () => confirm('确认离开吗?');
+var showConts;
+if (showConts == null || showConts == undefined) {
+    showConts = document.querySelectorAll('.show-cont');
+}
 
 function uidMark() {
     let carTextArr = ['昂科旗', '名爵', '奕炫', '开拓者', '科鲁泽', '昂科威S', '宋Pro', '风神AX7', '迈锐宝XL'];
@@ -44,7 +47,6 @@ document.querySelectorAll('.pages')[0].onclick = () => {
     uidMark();
 }
 
-var n = 1; // 1 完整标题  0 截取的标题
 for (let i = 0; i < showConts.length; i++) {
 
     // 编辑按钮设置禁用
@@ -95,22 +97,35 @@ for (let i = 0; i < showConts.length; i++) {
         copy(str)
     }
 
+    //复制点评id
+    let reviewIdDom = showConts[i].querySelector('div.manage_info > span:nth-child(1)');
+    reviewIdDom.onclick = () => copy(reviewIdDom.innerText.replace('点评ID：', ''))
+    reviewIdDom.style.cursor = 'pointer';
+    reviewIdDom.style.background = '#fff';
+
     // 复制完整车型
     let titleDOM = showConts[i].querySelector(".tit-box");
     titleDOM.style.cursor = 'pointer';
     titleDOM.style.background = '#DFE6C7';
     titleDOM.onclick = function () {
-        let hrefStr1 = carModelDOM.querySelector('a:nth-child(1)').href; //车型信息链接
-        let hrefStr2 = carModelDOM.querySelector('a:nth-child(2)').href; //车型图片链接
         let str = this.innerText;
         let index = str.indexOf('款');
         let arr = str.split('');
         str = '';
         for (let k = index + 1; k < arr.length; k++)  str += arr[k];
         copy(str);
-        localStorage.setItem("hrefStr1", hrefStr1);
-        localStorage.setItem("hrefStr2", hrefStr2);
         localStorage.setItem("titleStr", this.innerText);
+        /***********************************************/
+        let baseURL = `http://ms.yiche.com/koubeiapi/api/admin/getAllTopicListByMoreCondition?topicId=${reviewIdDom.innerText.replace('点评ID：', '')}`;
+        Ajax.get(baseURL, res => {
+            res = JSON.parse(res);
+            console.log(res);
+            let carId = res.data.result[0].carInfo.carBaseInfos.carId;
+            let carSpell = res.data.result[0].carInfo.allSpell;
+            // let targetURL = `http://car.bitauto.com/${carSpell}/m${carId}`; // 这是打开车型信息页面
+            let targetURL = `http://photo.bitauto.com/sumphoto/style_${carId}`; //这是打开车型图片页面
+            localStorage.setItem('targetURL', targetURL);
+        })
 
     }
     // 复制发表时间
@@ -118,12 +133,6 @@ for (let i = 0; i < showConts.length; i++) {
     publishTimeDOM.onclick = () => copy(publishTimeDOM.innerText)
     publishTimeDOM.style.cursor = 'pointer';
     publishTimeDOM.style.background = '#fff';
-
-    //复制点评id
-    let reviewIdDom = showConts[i].querySelector('div.manage_info > span:nth-child(1)');
-    reviewIdDom.onclick = () => copy(reviewIdDom.innerText.replace('点评ID：', ''))
-    reviewIdDom.style.cursor = 'pointer';
-    reviewIdDom.style.background = '#fff';
 
     // 复制用户名 + uuid
     let usernameAndUuid = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
@@ -233,4 +242,31 @@ if (document.querySelector('#_div') == null) {
     _div.onclick = (e) => uidMark();
 }
 
-
+var Ajax = {
+    get: function (url, fn) {
+        // XMLHttpRequest对象用于在后台与服务器交换数据   
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function () {
+            // readyState == 4说明请求已完成
+            if (xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304) {
+                // 从服务器获得数据 
+                fn.call(this, xhr.responseText);
+            }
+        };
+        xhr.send();
+    },
+    // datat应为'a=a1&b=b1'这种字符串格式，在jq里如果data为对象会自动将对象转成这种字符串格式
+    post: function (url, data, fn) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        // 添加http头，发送信息至服务器时内容编码类型
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+                fn.call(this, xhr.responseText);
+            }
+        };
+        xhr.send(data);
+    }
+}
