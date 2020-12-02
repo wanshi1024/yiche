@@ -1,37 +1,46 @@
 document.body.style.userSelect = 'none';
-document.querySelector('.w450').style.display='none';
+document.querySelector('.w450').style.display = 'none';
 document.querySelector('.header').style.display = "none";
 document.body.style.background = '#DFE6C7';
 var showConts = document.querySelectorAll('.show-cont');
 window.onbeforeunload = () => confirm('确认离开吗?');
 
 function uidMark() {
+    let carTextArr = ['昂科旗', '名爵', '奕炫', '开拓者', '科鲁泽', '昂科威S', '宋Pro', '风神AX7', '迈锐宝XL'];
     setTimeout(() => {
         for (let i = 0; i < showConts.length; i++) {
+            // 标记文字内容颜色问题
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
             let contTextDom = showConts[i].querySelector('.cont_text');
-                let str = contTextDom.innerHTML;
-                if (str.length < 400) uidDom.style.border = '1px red solid';
-                else uidDom.style.border = 'none';
-                let wg = '#外观';
-                let ns = '#内饰';
-                let se = '色';
-                if (str.indexOf(se) != -1) uidDom.style.color = 'skyblue';
-                else uidDom.style.color = '#606266';
-                str = str.replace(new RegExp(se, 'gm'), `<mark><b>${se}</b></mark>`);
-                str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
-                str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
-                contTextDom.innerHTML = str;
+            let str = contTextDom.innerHTML;
+            if (str.length < 400) uidDom.style.border = '1px red solid';
+            else uidDom.style.border = 'none';
+            let wg = '#外观';
+            let ns = '#内饰';
+            let se = '色';
+            if (str.indexOf(se) != -1) uidDom.style.color = 'skyblue';
+            else uidDom.style.color = '#606266';
+            str = str.replace(new RegExp(se, 'gm'), `<mark><b>${se}</b></mark>`);
+            str = str.replace(wg, `<mark><b>${wg}</b></mark>`);
+            str = str.replace(ns, `<mark><b>${ns}</b></mark>`);
+            contTextDom.innerHTML = str;
+
+            //标记不加精车型
+            let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
+            let tempText = carModelDOM.innerText;
+            let isBuJiaJing = carTextArr.some(item => tempText.indexOf(item) != -1)
+            if (isBuJiaJing) carModelDOM.style.color = 'red';
+            else carModelDOM.style.color = '#606266';
         }
     }, 2000);
 }
 
 document.querySelectorAll('.pages')[1].onclick = () => {
-    scrollTo(0, 900);
+    scrollTo(0, 0);
     uidMark();
 }
 document.querySelectorAll('.pages')[0].onclick = () => {
-    scrollTo(0, 900);
+    scrollTo(0, 0);
     uidMark();
 }
 
@@ -121,6 +130,19 @@ for (let i = 0; i < showConts.length; i++) {
     usernameAndUuid.onclick = () => copy(usernameAndUuid.innerText);
     usernameAndUuid.style.cursor = 'pointer';
     usernameAndUuid.style.background = '#DFE6C7';
+
+    //获取每条点评的加精按钮
+    let jiajingDom = showConts[i].querySelector(' div.titlelist > ul > li.f_r > div > div:nth-child(1) > button:nth-child(2)');
+    if (jiajingDom != null) {
+        //加精按钮点击事件
+        jiajingDom.onclick = () => {
+            //0.5s后自动触发确认按钮点击事件
+            setTimeout(() => {
+                document.querySelector('body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary').click();
+            }, 500);
+        }
+    }
+
 
 }
 
