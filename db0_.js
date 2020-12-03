@@ -16,7 +16,7 @@ function uidMark() {
             let uidDom = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
             let contTextDom = showConts[i].querySelector('.cont_text');
             let str = contTextDom.innerHTML;
-            if (str.length < 400) uidDom.style.border = '1px red solid';
+            if (str.length < 350) uidDom.style.border = '1px red solid';
             else uidDom.style.border = 'none';
             let wg = '#外观';
             let ns = '#内饰';
@@ -34,6 +34,18 @@ function uidMark() {
             let isBuJiaJing = carTextArr.some(item => tempText.indexOf(item) != -1)
             if (isBuJiaJing) carModelDOM.style.color = 'red';
             else carModelDOM.style.color = '#606266';
+
+            //获取每条点评的加精按钮
+            let jiajingDom = showConts[i].querySelector(' div.titlelist > ul > li.f_r > div > div:nth-child(1) > button:nth-child(2)');
+            if (jiajingDom != null) {
+                //加精按钮点击事件
+                jiajingDom.onclick = () => {
+                    //0.5s后自动触发确认按钮点击事件
+                    setTimeout(() => {
+                        document.querySelector('body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary').click();
+                    }, 500);
+                }
+            }
         }
     }, 2000);
 }
