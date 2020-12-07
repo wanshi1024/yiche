@@ -147,9 +147,11 @@ for (let i = 0; i < showConts.length; i++) {
     publishTimeDOM.style.cursor = 'pointer';
     publishTimeDOM.style.background = '#fff';
 
-    // 复制用户名 + uuid
+    // 复制uuid
     let usernameAndUuid = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
-    usernameAndUuid.onclick = () => copy(usernameAndUuid.innerText);
+    let uStr = usernameAndUuid.innerText;
+    uStr = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
+    usernameAndUuid.onclick = () => copy(uStr);
     usernameAndUuid.style.cursor = 'pointer';
     usernameAndUuid.style.background = '#DFE6C7';
 
