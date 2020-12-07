@@ -69,3 +69,24 @@ var Ajax = {
         xhr.send(data);
     }
 }
+
+/**
+ * http://ms.yiche.com/koubeiapi/api/admin/getAllTopicListByMoreCondition?
+ * topicId=&userId=
+ * &serialId=1660
+ * &trimId=142645
+ * &pageSize=10
+ * &pageIndex=1
+ * &sTime=
+ * &eTime=
+ * &checkStatus=1
+ * &deleteStatus=
+ * &isHavePic=
+ * &isHaveVideo=
+ * &datatrans=0
+ * &userLevel=
+ * &rating=
+ * &userName=
+ * &dpStatus=
+ * &topicType=&isAuthen=&n=59
+ */

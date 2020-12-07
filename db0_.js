@@ -98,7 +98,7 @@ for (let i = 0; i < showConts.length; i++) {
     let carModelDOM = showConts[i].querySelector('ul > li:nth-child(2)');
     carModelDOM.style.cursor = 'pointer';
     carModelDOM.style.background = '#DFE6C7';
-    carModelDOM.onclick = function () {
+    carModelDOM.onclick = function() {
         let arr = carModelDOM.innerText.split(' '),
             str = '';
         if (arr.length == 3) {
@@ -119,28 +119,29 @@ for (let i = 0; i < showConts.length; i++) {
     let titleDOM = showConts[i].querySelector(".tit-box");
     titleDOM.style.cursor = 'pointer';
     titleDOM.style.background = '#DFE6C7';
-    titleDOM.onclick = function () {
-        let str = this.innerText;
-        let index = str.indexOf('款');
-        let arr = str.split('');
-        str = '';
-        for (let k = index + 1; k < arr.length; k++)  str += arr[k];
-        copy(str);
-        localStorage.setItem("titleStr", this.innerText);
-        /***********************************************/
-        let baseURL = `http://ms.yiche.com/koubeiapi/api/admin/getAllTopicListByMoreCondition?topicId=${reviewIdDom.innerText.replace('点评ID：', '')}`;
-        Ajax.get(baseURL, res => {
-            res = JSON.parse(res);
-            console.log(res);
-            let carId = res.data.result[0].carInfo.carBaseInfos.carId;
-            let carSpell = res.data.result[0].carInfo.allSpell;
-            // let targetURL = `http://car.bitauto.com/${carSpell}/m${carId}`; // 这是打开车型信息页面
-            let targetURL = `http://photo.bitauto.com/sumphoto/style_${carId}`; //这是打开车型图片页面
-            localStorage.setItem('targetURL', targetURL);
-        })
+    titleDOM.onclick = function() {
+            let str = this.innerText;
+            let index = str.indexOf('款');
+            let arr = str.split('');
+            str = '';
+            for (let k = index + 1; k < arr.length; k++) str += arr[k];
+            copy(str);
+            localStorage.setItem("titleStr", this.innerText);
+            /***********************************************/
+            let baseURL = `http://ms.yiche.com/koubeiapi/api/admin/getAllTopicListByMoreCondition?topicId=${reviewIdDom.innerText.replace('点评ID：', '')}`;
+            Ajax.get(baseURL, res => {
+                res = JSON.parse(res);
+                console.log(res);
+                let carId = res.data.result[0].carInfo.carBaseInfos.carId;
+                let carSpell = res.data.result[0].carInfo.allSpell;
+                let targetURL_carMsg = `http://car.bitauto.com/${carSpell}/m${carId}`; // 这是打开车型信息页面
+                let targetURL_carImg = `http://photo.bitauto.com/sumphoto/style_${carId}`; //这是打开车型图片页面
+                localStorage.setItem('targetURL_carMsg', targetURL_carMsg);
+                localStorage.setItem('targetURL_carImg', targetURL_carImg);
+            })
 
-    }
-    // 复制发表时间
+        }
+        // 复制发表时间
     let publishTimeDOM = showConts[i].querySelector('div.manage_info > span:nth-child(2)');
     publishTimeDOM.onclick = () => copy(publishTimeDOM.innerText)
     publishTimeDOM.style.cursor = 'pointer';
@@ -226,7 +227,7 @@ function promptBox(str) {
 
 }
 
-document.onkeydown = function (e) {
+document.onkeydown = function(e) {
     e = window.event || e;
     var k = e.keyCode;
     //屏蔽ctrl+R，F5键，ctrl+F5键  F3键！验证
@@ -255,11 +256,11 @@ if (document.querySelector('#_div') == null) {
 }
 
 var Ajax = {
-    get: function (url, fn) {
+    get: function(url, fn) {
         // XMLHttpRequest对象用于在后台与服务器交换数据   
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
-        xhr.onreadystatechange = function () {
+        xhr.onreadystatechange = function() {
             // readyState == 4说明请求已完成
             if (xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304) {
                 // 从服务器获得数据 
@@ -269,12 +270,12 @@ var Ajax = {
         xhr.send();
     },
     // datat应为'a=a1&b=b1'这种字符串格式，在jq里如果data为对象会自动将对象转成这种字符串格式
-    post: function (url, data, fn) {
+    post: function(url, data, fn) {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
         // 添加http头，发送信息至服务器时内容编码类型
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function () {
+        xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
                 fn.call(this, xhr.responseText);
             }
