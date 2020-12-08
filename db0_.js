@@ -46,7 +46,15 @@ function uidMark() {
                     }, 500);
                 }
             }
+            // 复制uuid
+            let usernameAndUuid = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
+            let uStr = usernameAndUuid.innerText;
+            uStr = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
+            usernameAndUuid.onclick = () => copy(uStr);
+            usernameAndUuid.style.cursor = 'pointer';
+            usernameAndUuid.style.background = '#DFE6C7';
         }
+
     }, 2000);
 }
 
@@ -147,13 +155,7 @@ for (let i = 0; i < showConts.length; i++) {
     publishTimeDOM.style.cursor = 'pointer';
     publishTimeDOM.style.background = '#fff';
 
-    // 复制uuid
-    let usernameAndUuid = showConts[i].querySelector('div.titlelist > ul > li.three > span:nth-child(1)');
-    let uStr = usernameAndUuid.innerText;
-    uStr = uStr.substring(uStr.indexOf('（') + 1, uStr.length - 1);
-    usernameAndUuid.onclick = () => copy(uStr);
-    usernameAndUuid.style.cursor = 'pointer';
-    usernameAndUuid.style.background = '#DFE6C7';
+
 
     //获取每条点评的加精按钮
     let jiajingDom = showConts[i].querySelector(' div.titlelist > ul > li.f_r > div > div:nth-child(1) > button:nth-child(2)');
