@@ -117,11 +117,7 @@ for (let i = 0; i < showConts.length; i++) {
         copy(str)
     }
 
-    //复制点评id
-    let reviewIdDom = showConts[i].querySelector('div.manage_info > span:nth-child(1)');
-    reviewIdDom.onclick = () => copy(reviewIdDom.innerText.replace('点评ID：', ''))
-    reviewIdDom.style.cursor = 'pointer';
-    reviewIdDom.style.background = '#fff';
+
 
     // 复制完整车型
     let titleDOM = showConts[i].querySelector(".tit-box");
@@ -146,6 +142,7 @@ for (let i = 0; i < showConts.length; i++) {
                 let targetURL_carImg = `http://photo.bitauto.com/sumphoto/style_${carId}`; //这是打开车型图片页面
                 localStorage.setItem('targetURL_carMsg', targetURL_carMsg);
                 localStorage.setItem('targetURL_carImg', targetURL_carImg);
+                localStorage.setItem('carId', carId);
             })
 
         }
@@ -167,6 +164,19 @@ for (let i = 0; i < showConts.length; i++) {
                 document.querySelector('body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary').click();
             }, 500);
         }
+    }
+    //复制点评id
+    let reviewIdDom = showConts[i].querySelector('div.manage_info > span:nth-child(1)');
+    reviewIdDom.onclick = () => copy(reviewIdDom.innerText.replace('点评ID：', ''))
+    reviewIdDom.style.cursor = 'pointer';
+    reviewIdDom.style.background = '#fff';
+
+    //跳转到编辑页面
+    let bianji = showConts[i].querySelector('div.titlelist > ul > li:nth-child(4) > div')
+    bianji.style.cursor = 'pointer';
+    bianji.style.background = '#DFE6C7';
+    bianji.onclick = () => {
+        window.open(`http://ms.yiche.com/remark_manage/#/moderated/edit/edit?id=${reviewIdDom.innerText.replace('点评ID：', '')}`)
     }
 
 
