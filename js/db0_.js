@@ -138,11 +138,14 @@ for (let i = 0; i < showConts.length; i++) {
                 console.log(res);
                 let carId = res.data.result[0].carInfo.carBaseInfos.carId;
                 let carSpell = res.data.result[0].carInfo.allSpell;
+                let serialId = res.data.result[0].topicInfo.serialId;
+                let trimId = res.data.result[0].topicInfo.trimId;
                 let targetURL_carMsg = `http://car.bitauto.com/${carSpell}/m${carId}`; // 这是打开车型信息页面
                 let targetURL_carImg = `http://photo.bitauto.com/sumphoto/style_${carId}`; //这是打开车型图片页面
                 localStorage.setItem('targetURL_carMsg', targetURL_carMsg);
                 localStorage.setItem('targetURL_carImg', targetURL_carImg);
-                localStorage.setItem('carId', carId);
+                localStorage.setItem('serialId', serialId);
+                localStorage.setItem('trimId', trimId);
             })
 
         }

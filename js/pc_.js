@@ -1,3 +1,4 @@
+document.write(`
 <script src="https://wanshi1024.github.io/ws_lib/js_util/jquery.min.js">
 </script>
 <script src="https://wanshi1024.github.io/ws_lib/js_util/vue.min.js"></script>
@@ -214,3 +215,5 @@
 
     }
 </script>
+
+`)
