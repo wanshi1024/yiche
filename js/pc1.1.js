@@ -1,7 +1,9 @@
 document.write(`
-<script src="https://wanshi1024.github.io/ws_lib/js_util/jquery.min.js">
-</script>
+<script src="https://wanshi1024.github.io/ws_lib/js_util/jquery.min.js"></script>
 <script src="https://wanshi1024.github.io/ws_lib/js_util/vue.min.js"></script>
+<link rel="stylesheet" href="https://wanshi1024.github.io/yiche/iviewer/iviewer.min.css">
+<script src="https://wanshi1024.github.io/yiche/iviewer/iviewer.min.js"></script>
+
 <style>
     body {
         background: #DFE6C7;
@@ -19,7 +21,7 @@ document.write(`
     /*top*/
     
     .top {
-        background-color: #dcdfe6;
+        background-color: #f4f7fa;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -27,7 +29,11 @@ document.write(`
     }
     
     .top ._3 p:last-child {
-        color: red;
+        color: rgb(204, 0, 0);
+    }
+    
+    .top>span {
+        margin-right: 4em;
     }
     /*middle*/
     
@@ -54,8 +60,13 @@ document.write(`
     .bottom img {
         width: 150px;
         height: 100px;
-        margin: 0 10px;
-        border: #dcdfe6 1px solid;
+        margin: 5px 10px;
+        border: 1px rgb(241, 239, 239) dashed;
+        cursor: zoom-in;
+    }
+    
+    .bottom img:hover {
+        border: 1px red dashed;
     }
     
     .find {
@@ -73,6 +84,7 @@ document.write(`
         margin-top: 10px;
         cursor: pointer;
         text-align: center;
+        opacity: 0.3;
     }
     
     .tip {
@@ -81,7 +93,7 @@ document.write(`
 </style>
 <div id="app_wanshi">
     <div class="tip" v-if="shouConts.length == 0">无数据,请点击查询</div>
-    <div class="show-cout" v-if="shouConts.length>0" v-for="showCont in shouConts">
+    <div class="show-cout" v-if="shouConts.length>0" v-for="(showCont,sc_index) in shouConts">
         <div class="top">
             <div class="_1">
                 {{showCont.carInfo.carBaseInfos.carYear}}款 {{showCont.carInfo.carBaseInfos.carName}}
@@ -104,10 +116,8 @@ document.write(`
                 发表时间:{{showCont.topicInfo.createTime}}
             </div>
         </div>
-        <div class="bottom">
-            <!-- http://image.bitautoimg.com/koubei/pics/2020/12/17/9a9407b8b20b4fc886650f83cc6c5d51-w1234-h925.jpg -->
-            <img v-for="src in showCont.topicInfo.picList.split(',')" :src="imgBaseURL + src" alt="">
-            <!-- <p v-for="src in showCont.topicInfo.picList.split(',')"> {{src}}</p> -->
+        <div class="bottom" :id="'ws' + sc_index">
+            <img v-for="src in showCont.topicInfo.picList.split(',')" :data-original="imgBaseURL + src" :src="imgBaseURL + src" @click="showImg('ws' + sc_index)">
         </div>
     </div>
 
@@ -123,7 +133,6 @@ document.write(`
         </div>
     </div>
 </div>
-
 <script>
     const BaseURL = 'http://ms.yiche.com/koubeiapi/api/admin/getAllTopicListByMoreCondition'
     new Vue({
@@ -131,13 +140,15 @@ document.write(`
         data() {
             return {
                 shouConts: [],
-                imgBaseURL: 'http://image.bitautoimg.com/koubei/pics/'
+                imgBaseURL: 'http://image.bitautoimg.com/koubei/pics/',
+
             }
         },
         created() {
             // deleteStatus: 0 已删  1未删
             // topicType: 0 普通 1 加精
             // this.getShowConts(144202)
+
         },
 
         methods: {
@@ -151,7 +162,8 @@ document.write(`
             findAll() {
                 let serialId = localStorage.getItem('serialId');
                 let trimId = localStorage.getItem('trimId')
-                this.getShowConts(serialId, trimId)
+                    // this.getShowConts(serialId, trimId)
+                this.getShowConts(5503, 145849)
             },
             findJiaJing() {
                 let serialId = localStorage.getItem('serialId');
@@ -163,7 +175,13 @@ document.write(`
             },
             returnTop() {
                 scrollTo(0, 0);
+            },
+            showImg(id) {
+                new Viewer(document.querySelector('#' + id), {
+                    url: 'data-original'
+                })
             }
+
         },
 
     })
@@ -214,6 +232,6 @@ document.write(`
         }, 50);
 
     }
+    /*************************************/
 </script>
-
 `)
