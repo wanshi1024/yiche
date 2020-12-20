@@ -1,8 +1,8 @@
 document.write(`
 <script src="https://wanshi1024.github.io/ws_lib/js_util/jquery.min.js"></script>
 <script src="https://wanshi1024.github.io/ws_lib/js_util/vue.min.js"></script>
-<link rel="stylesheet" href="https://wanshi1024.github.io/yiche/iviewer/iviewer.min.css">
-<script src="https://wanshi1024.github.io/yiche/iviewer/iviewer.min.js"></script>
+<link rel="stylesheet" href="https://wanshi1024.github.io/yiche_script/iviewer/iviewer.min.css">
+<script src="https://wanshi1024.github.io/yiche_script/iviewer/iviewer.min.js"></script>
 
 <style>
     body {
