@@ -34,6 +34,38 @@ document.write(`
     
     .top>span {
         margin-right: 4em;
+        background: #DFE6C7;
+        cursor: pointer;
+    }
+    
+    .btn {
+        display: inline-block;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        background: #fff;
+        border: 1px solid #dcdfe6;
+        color: #606266;
+        -webkit-appearance: none;
+        text-align: center;
+        box-sizing: border-box;
+        outline: 0;
+        margin: 0;
+        transition: .1s;
+        font-weight: 500;
+        padding: 12px 20px;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+    
+    .delete_btn {
+        color: #fff;
+        background-color: #f56c6c !important;
+    }
+    
+    .yijiajing_btn {
+        color: #fff;
+        background-color: #a3d9ab !important;
     }
     /*middle*/
     
@@ -68,6 +100,7 @@ document.write(`
     .bottom img:hover {
         border: 1px red dashed;
     }
+    /****/
     
     .find {
         position: fixed;
@@ -90,13 +123,44 @@ document.write(`
     .tip {
         text-align: center;
     }
+    /******/
+    
+    .delete_select {
+        position: fixed;
+        left: 40%;
+        top: 20%;
+        background: white;
+        width: 230px;
+        height: 400px;
+        padding-left: 20px;
+    }
+    
+    .delete_select label {
+        cursor: pointer;
+    }
+    
+    .delete_select label:hover {
+        color: #409eff;
+    }
+    
+    .delete_select label>input {
+        margin: 10px 0;
+    }
+    
+    .delete_select>p:last-child>span {}
+    
+    .delete_select>p:last-child>span:last-child {
+        color: #fff;
+        background-color: #409eff;
+    }
+    /***/
 </style>
 <div id="app_wanshi">
     <div class="tip" v-if="shouConts.length == 0">无数据,请点击查询</div>
     <div class="show-cout" v-if="shouConts.length>0" v-for="(showCont,sc_index) in shouConts">
         <div class="top">
             <div class="_1">
-                {{showCont.carInfo.carBaseInfos.carYear}}款 {{showCont.carInfo.carBaseInfos.carName}}
+                {{showCont.carInfo.masterBrandName}} {{showCont.carInfo.carBaseInfos.carYear}}款 {{showCont.carInfo.carBaseInfos.carName}}
             </div>
             <div class="_2">{{showCont.carInfo.serialName}}</div>
             <div class="_3">
@@ -104,9 +168,9 @@ document.write(`
                 <p>账号等级{{showCont.topicInfo.level}}</p>
             </div>
             <!-- isDigest 0未加精 1 已加精 -->
-            <span v-if="showCont.topicInfo.deleteStatus==0">已删除</span>
-            <span v-else-if="showCont.topicInfo.isDigest==1">已加精</span>
-            <span v-else-if="showCont.topicInfo.deleteStatus==1">待操作</span>
+            <span class="btn" v-if="showCont.topicInfo.deleteStatus==0">已删除</span>
+            <span class="btn yijiajing_btn" v-else-if="showCont.topicInfo.isDigest==1" @click="cancelJiaJing(showCont)">已加精</span>
+            <span class="btn delete_btn" v-else-if="showCont.topicInfo.deleteStatus==1" @click="deleteDianPingBefore(showCont)">删除</span>
         </div>
         <div class="middle">
             <div class="_1" @click="copyId(showCont.topicInfo.id)">
@@ -132,6 +196,19 @@ document.write(`
             返回顶部
         </div>
     </div>
+    <div class="delete_select" v-if="deleteBoxIsShow">
+        <p>删除原因 {{ds_value}}</p>
+        <div v-for="(ds,index) in deleteSelect">
+            <label :for="'r' + index">
+                <input type="radio" v-model="ds_value" name="delete_select" :value="ds"  :id="'r' + index" >
+                {{ds}}
+            </label>
+        </div>
+        <p>
+            <span class="btn" title="取消关闭模态框" @click="deleteBoxIsShow=false">取消</span>
+            <span class="btn" title="确认删除点评" @click="deleteDianPing()">确定</span>
+        </p>
+    </div>
 </div>
 <script>
     const BaseURL = 'http://ms.yiche.com/koubeiapi/api/admin/getAllTopicListByMoreCondition'
@@ -141,14 +218,16 @@ document.write(`
             return {
                 shouConts: [],
                 imgBaseURL: 'http://image.bitautoimg.com/koubei/pics/',
-
+                deleteSelect: ['图片质量问题', '文字质量问题', '点评内容重复', '车款信息错误', '购车信息错误', '账号问题', '其它问题'],
+                deleteBoxIsShow: false,
+                userData: localStorage.getItem('userData'),
+                ds_value: '点评内容重复',
+                findType: 0
             }
         },
         created() {
             // deleteStatus: 0 已删  1未删
             // topicType: 0 普通 1 加精
-            // this.getShowConts(144202)
-
         },
 
         methods: {
@@ -160,12 +239,14 @@ document.write(`
                 $.get(url, res => this.shouConts = res.data.result)
             },
             findAll() {
+                this.findType = 1;
                 let serialId = localStorage.getItem('serialId');
                 let trimId = localStorage.getItem('trimId')
                 this.getShowConts(serialId, trimId)
-                    // this.getShowConts(5503, 145849)
+                    // this.getShowConts(2273, 135818)
             },
             findJiaJing() {
+                this.findType = 2;
                 let serialId = localStorage.getItem('serialId');
                 let trimId = localStorage.getItem('trimId')
                 this.getShowConts(serialId, trimId, 1)
@@ -180,6 +261,56 @@ document.write(`
                 new Viewer(document.querySelector('#' + id), {
                     url: 'data-original'
                 })
+            },
+            deleteDianPingBefore(showCont) {
+                this.deleteBoxIsShow = true;
+                localStorage.setItem('showCont', JSON.stringify(showCont))
+                    // console.log(JSON.parse(localStorage.getItem('showCont')));
+            },
+            deleteDianPing() {
+                let showCont = JSON.parse(localStorage.getItem('showCont'));
+                let userData = JSON.parse(this.userData);
+                // console.log(userData.user);
+                let obj = {
+                        operReason: this.ds_value,
+                        operUserId: userData.user.userId, // wb_zhangdd 8224
+                        operUserName: userData.user.userName,
+                        //{{showCont.carInfo.masterBrandName}} {{showCont.carInfo.carBaseInfos.carYear}}款 {{showCont.carInfo.carBaseInfos.carName}}
+                        //奔驰 2021款E 260 L 运动型
+                        title: showCont.carInfo.masterBrandName + ' ' + showCont.carInfo.carBaseInfos.carYear + showCont.carInfo.carBaseInfos.carName,
+                        topicId: showCont.topicInfo.id,
+                        uid: showCont.user.uid
+                    }
+                    // console.log(obj);
+                $.post("http://ms.yiche.com/koubeiapi/api/admin/delete", obj,
+                    (data, textStatus, jqXHR) => {
+                        promptBox(data.message)
+                        console.log(data);
+                        this.deleteBoxIsShow = false;
+                        if (this.findType == 1) this.findAll()
+                        else if (this.findType == 2) this.findJiaJing()
+                    }
+                );
+            },
+            cancelJiaJing(showCont) {
+                console.log(showCont);
+                let userData = JSON.parse(this.userData);
+                let obj = {
+                    digestType: 0,
+                    operUserId: userData.user.userId,
+                    operUserName: userData.user.userName,
+                    title: showCont.carInfo.masterBrandName + ' ' + showCont.carInfo.carBaseInfos.carYear + showCont.carInfo.carBaseInfos.carName,
+                    topicId: showCont.topicInfo.id,
+                    uid: showCont.user.uid
+                }
+                $.post("http://ms.yiche.com/koubeiapi/api/admin/digest", obj,
+                    (data, textStatus, jqXHR) => {
+                        promptBox("取消加精" + data.message)
+                            // console.log(data);
+                        if (this.findType == 1) this.findAll()
+                        else if (this.findType == 2) this.findJiaJing()
+                    }
+                );
             }
 
         },
