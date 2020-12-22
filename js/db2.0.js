@@ -20,6 +20,7 @@ function createMyDom(domText, index) {
     _div.style.position = "fixed";
     _div.style.top = `${index * 10}%`;
     _div.style.left = '0';
+    _div.style.opacity = 0.2;
     _div.innerHTML = domText;
     document.body.appendChild(_div);
     return _div;

@@ -27,6 +27,11 @@
         border-top: 1px solid #dfe1e6;
     }
     
+    .top ._1 p:last-child {
+        font-size: 12px;
+        font-weight: normal;
+    }
+    
     .top ._3 p:last-child {
         color: rgb(204, 0, 0);
     }
@@ -73,6 +78,12 @@
         justify-content: start;
     }
     
+    .middle>* {
+        font-weight: normal;
+        font-size: 14px;
+        color: #606266;
+    }
+    
     .middle ._1 {
         background: white;
         cursor: pointer;
@@ -98,6 +109,12 @@
     
     .bottom img:hover {
         border: 1px red dashed;
+    }
+    /****/
+    
+    .oper>p>span {
+        margin: 3em;
+        font-weight: normal;
     }
     /****/
     
@@ -159,12 +176,13 @@
     <div class="show-cout" v-if="shouConts.length>0" v-for="(showCont,sc_index) in shouConts">
         <div class="top">
             <div class="_1">
-                {{showCont.carInfo.masterBrandName}} {{showCont.carInfo.carBaseInfos.carYear}}款 {{showCont.carInfo.carBaseInfos.carName}}
+                <p>{{showCont.carInfo.masterBrandName}} {{showCont.carInfo.carBaseInfos.carYear}}款 {{showCont.carInfo.carBaseInfos.carName}}</p>
+                <p>{{showCont.topicInfo.title}}</p>
             </div>
             <div class="_2">{{showCont.carInfo.serialName}}</div>
             <div class="_3">
                 <p>{{showCont.user.showname}}({{showCont.user.uid}})</p>
-                <p>账号等级{{showCont.topicInfo.level}}</p>
+                <p>{{showCont.topicInfo.level != 0 ? ('账号等级'+showCont.topicInfo.level):'' }}</p>
             </div>
             <!-- isDigest 0未加精 1 已加精 -->
             <span class="btn" v-if="showCont.topicInfo.deleteStatus==0">已删除</span>
@@ -181,6 +199,13 @@
         </div>
         <div class="bottom" :id="'ws' + sc_index">
             <img v-for="src in showCont.topicInfo.picList.split(',')" :data-original="imgBaseURL + src" :src="imgBaseURL + src" @click="showImg('ws' + sc_index)">
+        </div>
+        <div class="oper">
+            <p>
+                <span>操作人: {{showCont.operInfo[0].operUserName}}</span>
+                <span>操作时间: {{showCont.operInfo[0].operTime}}</span>
+                <span>操作内容: {{showCont.operInfo[0].operContent}}</span>
+            </p>
         </div>
     </div>
 
@@ -241,8 +266,8 @@
                 this.findType = 1;
                 let serialId = localStorage.getItem('serialId');
                 let trimId = localStorage.getItem('trimId')
-                this.getShowConts(serialId, trimId)
-                    // this.getShowConts(2273, 135818)
+                    // this.getShowConts(serialId, trimId)
+                this.getShowConts(2273, 135818)
             },
             findJiaJing() {
                 this.findType = 2;
