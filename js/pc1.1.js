@@ -267,8 +267,8 @@ document.write(`
                 this.findType = 1;
                 let serialId = localStorage.getItem('serialId');
                 let trimId = localStorage.getItem('trimId')
-                    // this.getShowConts(serialId, trimId)
-                this.getShowConts(2273, 135818)
+                this.getShowConts(serialId, trimId)
+                // this.getShowConts(2273, 135818)F
             },
             findJiaJing() {
                 this.findType = 2;
